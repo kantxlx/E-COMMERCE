@@ -1,0 +1,1351 @@
+/* Geral */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fffefe;
+}
+
+/* Contêiner principal */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espaço entre a barra de filtros e a lista de produtos */
+    margin: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*--------------------------------Cabeçalho------------------------------------*/
+
+/* Contêiner para logo e header */
+.header-container {
+    display: flex;
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between;
+    width: 100%;
+    position: fixed; /* Mantém no topo */
+    top: 0;
+    z-index: 1000;
+    background-color: black; /* Cor de fundo do cabeçalho */
+    padding: 10px 20px;
+}
+
+/* Contêiner de pesquisa, Central de Atendimento e Entrar/Cadastrar */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+}
+.logo {
+    flex: 1; /* Permite que a logo ocupe espaço igual */
+    text-align: center; /* Centraliza a logo */
+}
+/* Logo e carrinho na mesma linha em telas grandes */
+.logo-container {
+    display: flex;
+    justify-content: space-between; /* Espaça a logo e o carrinho */
+    width: 100%; /* Garante que ocupe toda a largura */
+    max-width: 1200px; /* Limita a largura máxima do cabeçalho */
+}
+
+/* Estilo da logo */
+.logo img {
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    margin-right: 20px; /* Espaço entre a logo e o restante */
+}
+
+/* Ajustes no main-header para mantê-lo flexível */
+.main-header {
+    display: flex;
+    flex-grow: 1; /* O header ocupa o espaço restante */
+    justify-content: space-between;
+    padding: 22px 20px;
+    align-items: center;
+}
+
+/*central de ajuda*/
+.logo1 img {
+    width: 160px;
+    height: auto;
+    object-fit: contain;
+    margin-right: 50px;
+}
+
+/* Modal da Central de Atendimento */
+.support-modal {
+    display: none; /* Esconde o modal por padrão */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semitransparente */
+    justify-content: center;
+    align-items: center;
+}
+
+.support-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Sombras para destacar */
+    color: #000;
+}
+
+.close-support-modal {
+    color: #aaa;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-support-modal:hover,
+.close-support-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.support-whatsapp-btn,
+.support-instagram-btn,
+.support-email-btn {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #28a745; /* Cor do botão WhatsApp */
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: transform 0.3s ease; /* Transição para efeito de zoom */
+}
+
+.support-instagram-btn {
+    background-color: #E1306C; /* Cor do botão Instagram */
+}
+
+.support-email-btn {
+    background-color: #007bff; /* Cor do botão E-mail */
+}
+
+.support-whatsapp-btn:hover,
+.support-instagram-btn:hover,
+.support-email-btn:hover {
+    transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+}
+
+.support-whatsapp-btn:hover {
+    background-color: #218838;
+}
+
+.support-instagram-btn:hover {
+    background-color: #C13584;
+}
+
+.support-email-btn:hover {
+    background-color: #0056b3;
+}
+
+/* login/cadastro */
+.logo2 {
+    display: inline-block; /* Limita a área clicável ao conteúdo da logo */
+    position: relative;
+    margin-right: 150px; /* Mantém o espaçamento entre a logo e outros elementos */
+}
+
+.logo2 img {
+    width: 160px;
+    height: auto;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+/* Esconde o menu do usuário */
+.hidden {
+    display: none;
+}
+
+.perfil-menu {
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1003;
+    border-radius: 8px; /* Bordas arredondadas */
+    display: none; /* Começa escondido */
+    white-space: nowrap; /* Garante que o conteúdo não quebre a linha */
+}
+
+.perfil-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.perfil-menu ul li {
+    padding: 4px 8px; /* Diminui o padding para reduzir a área clicável */
+}
+
+/* Estilo dos links */
+.perfil-menu ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block; /* Faz o link ocupar toda a área do li */
+    border-radius: 4px; /* Bordas arredondadas para os itens do menu */
+    transition: background-color 0.3s; /* Transição suave para o fundo */
+    width: auto; /* Remove a largura fixa para que o botão se ajuste ao texto */
+    padding: 4px 8px; /* Ajusta o padding para diminuir a área clicável */
+}
+
+/* Efeito ao passar o mouse */
+.perfil-menu ul li a:hover {
+    background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+}
+
+/* Search Area */
+.search-area {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin-left: 50px;
+    margin-right: 20px;
+}
+
+.search-area input {
+    padding: 15px; /* Aumentei a altura */
+    width: 350px; /* Diminui a largura */
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+}
+
+.search-area button {
+    background-color: #ffffff; /* Botão com cor dourada */
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px; /* Aumentei a altura */
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.search-area button:hover {
+    transform: scale(1.05); /* Aumenta a escala quando passa o mouse */
+    background-color: #3e4246;
+}
+
+/* Account and Cart Section */
+.cart img, .account img {
+    width: 40px;
+    height: auto;
+    margin-left: 20px;
+    cursor: pointer; /* Garante que seja clicável */
+}
+
+/* Estilo do ícone do carrinho */
+.cart {
+    position: fixed;
+    top: 20px;
+    right: 90px;
+    display: inline-block;
+    flex-shrink: 0; /* Garante que o carrinho não encolha */
+    margin-left: auto; /* Manda o carrinho para a direita */
+}
+
+.cart img {
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+    margin-top: 18px;
+}
+
+#cart-count {
+    position: absolute;
+    top: -10px; /* Ajuste conforme necessário */
+    right: -10px; /* Ajuste conforme necessário */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 18px;
+}
+
+/* Estilo do modal do carrinho */
+#cart-modal {
+    display: none; /* Inicialmente escondido */
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fundo semi-transparente */
+    z-index: 1000; /* Fica acima de outros elementos */
+    overflow-y: auto; /* Permite rolar se necessário */
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+}
+
+/* Conteúdo do modal */
+#cart-modal-content {
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 8px;
+    min-height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+/* Botão de fechar */
+.close-cart {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Itens do carrinho */
+#cart-items {
+    margin-top: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    position: relative;
+    transition: transform 0.2s ease; /* Adiciona a transição */
+}
+
+.cart-item:hover {
+    transform: scale(1.05); /* Aumenta a escala quando passa o mouse */
+    border-color: #0a74da;
+}
+
+.cart-item img {
+    width: 50px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.cart-item .product-details {
+    flex: 1;
+}
+
+.cart-item .product-name {
+    font-weight: bold;
+    text-align: left;
+}
+
+.cart-item .product-price {
+    font-size: 14px;
+    color: #555;
+}
+
+.cart-item .remove-item {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #d9534f;
+}
+
+.cart-total {
+    margin: 10px 0 10px; /* Aumenta a margem superior para mover para baixo */
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Botão de comprar */
+#checkout-button {
+    margin: 20px auto; /* Centraliza o botão */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center; /* Garante que o texto do botão fique centralizado */
+}
+
+#checkout-button:hover {
+    background-color: #0056b3;
+}
+
+.account img {
+    margin-right: 20px;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column; /* Faz os itens ficarem em coluna */
+        padding: 11px 0px;
+    }
+
+    .logo {
+        margin-bottom: 7px;
+        margin-right: 15%;
+    }
+
+    .logo img {
+        width: 150px;
+    }
+
+    /* Container para os outros itens */
+    .header-items {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Logo do Central de Ajuda */
+    .logo1 img {
+        width: 30px;
+        margin-right: 20px;
+        content: url('/img/Central2.0.png'); /* Troca a imagem do logo1 */
+    }
+
+    .logo2 img {
+        width: 120px;
+    }
+
+    /* Área de busca */
+    .search-area {
+        flex-grow: 1;
+        margin: 0 10px;
+    }
+
+    .search-area input {
+        width: 180px;
+        padding: 10px;
+    }
+
+    .search-area button {
+        width: auto;
+        padding: 10px;
+    }
+
+    /* Ícone do carrinho */
+    .logo-container {
+        justify-content: center; /* Centraliza logo e carrinho na coluna */
+    }
+
+    .cart {
+        position: fixed;
+        top: -4px;
+        right: 40px;
+        display: inline-block;
+        flex-shrink: 0; /* Garante que o carrinho não encolha */
+        margin-left: auto; /* Manda o carrinho para a direita */
+    }
+
+    .cart img {
+        width: 30px;
+    }
+
+    /* Ajustes para o modal do carrinho */
+    #cart-modal {
+        width: 80%;
+        max-width: 300px;
+    }
+}
+
+/* Para telas muito pequenas, como em dispositivos móveis */
+@media (max-width: 480px) {
+    .logo img {
+        width: 120px; /* Tamanho menor da logo */
+    }
+    
+    .search-container{
+        flex-direction: column; /* Coloca os elementos em coluna */
+    }
+
+    /* Logo do Central de Ajuda */
+    .logo1 img {
+        width: 20px;
+        margin-right: 20px;
+        content: url('/img/Central2.0.png'); /* Troca a imagem do logo1 */
+    }
+
+    .logo2 img {
+        width: 100px;
+    }
+    .search-area input {
+        padding: 8px;
+    }
+
+    .search-area button {
+        padding: 8px;
+    }
+}
+
+/* Estilos para desktop */
+@media (min-width: 769px) {
+    header {
+        display: block;
+    }
+
+    .menu-button {
+        display: none;
+    }
+}
+
+/* Black Line Separator */
+.separator {
+    height: 9px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 105px;
+}
+
+/* Estilização da barra de navegação */
+.nav-bar {
+    background-color: black;
+    padding: 2px 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    z-index: 998;
+    transition: opacity 0.3s ease;
+}
+
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+}
+
+.nav-bar ul li {
+    position: relative;
+}
+
+.nav-bar li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.nav-bar li a:hover {
+    color: #565252;
+}
+
+.dropdown-container ul li a{
+    color: #0f0d0d;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    font-weight: bold;
+}
+
+.dropdown-container ul li a:hover{
+    background-color: #e9e6e6; /* Cor de fundo ao passar o mouse */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilização do dropdown */
+.nav-bar .dropdown {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    top: 100%;
+    left: 0;
+    list-style: none;
+    padding: 10px;
+    width: 200px;
+    z-index: 1;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-bar ul li:hover .dropdown {
+    display: block;
+}
+
+.nav-bar .dropdown li {
+    margin-bottom: 5px;
+    display: block;
+}
+
+.marca-item {
+    color: #000; /* Cor preta para os nomes das marcas */
+}
+
+.marca-item:hover {
+    color: #333;
+}
+
+/* Container da imagem */
+.imagem-marcas-container {
+    display: none; /* Esconde o quadrado por padrão */
+    position: absolute;
+    width: 200px; /* Ajuste a largura conforme necessário */
+    height: 200px; /* Ajuste a altura conforme necessário */
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 999;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Adiciona transição suave */
+    opacity: 0; /* Inicialmente invisível */
+    transform: translateY(10px); /* Suaviza o movimento ao aparecer */
+}
+
+.imagem-marcas-container.mostrar {
+    opacity: 1; /* Torna visível quando o mouse está sobre a marca */
+    transform: translateY(0); /* Remove o movimento */
+}
+
+.imagem-marcas-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* Responsividade nav-bar*/
+@media (max-width: 768px) {
+    .nav-bar ul {
+        width: 100%; /* Mantém a largura da lista como 100% */
+        justify-content: space-between; /* Distribui os itens uniformemente */
+    }
+
+    /* Esconde a imagem das marcas em telas menores */
+    .imagem-marcas-container {
+        display: none; /* Esconde o quadrado por padrão */
+        position: absolute;
+        width: 0px; /* Ajuste a largura conforme necessário */
+        height: 0px; /* Ajuste a altura conforme necessário */
+        border-radius: 5px;
+        opacity: 0; /* Inicialmente invisível */
+    }
+
+    /* Reduz o padding dos links para melhor ajuste em telas menores */
+    .nav-bar li a {
+        padding: 8px; /* Ajusta o padding para itens menores */
+    }
+
+    /* Evita que a imagem das marcas apareça ao passar o mouse */
+    .nav-bar ul li:hover .imagem-marcas-container {
+        display: none; /* Mantém a imagem das marcas oculta */
+    }
+}
+
+/*-----------------------Oferecemos-------------------------------*/
+
+/*o que oferecemos*/
+.features {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 200px;
+    color: #333333;
+}
+
+.feature-item img {
+    width: 30px; /* Ajuste o tamanho do ícone conforme necessário */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.feature-text h3 {
+    font-size: 1.0rem;
+    font-weight: 600;
+    color: #333;
+    margin: 10px 0 5px;
+}
+
+.feature-text p {
+    font-size: 0.9rem;
+    color: #888;
+    margin: 0;
+}
+
+/* Espaçamento entre os itens */
+.features .feature-item {
+    margin: 0 120px;
+}
+
+/* Consultas de mídia para telas pequenas */
+@media (max-width: 768px) {
+    .features {
+        justify-content: center; /* Centraliza os itens em telas menores */
+    }
+    
+    .features .feature-item {
+        margin: 0 0px;
+    }
+
+    .feature-item {
+        max-width: 150px; /* Limita a largura em telas menores */
+        margin: 10px; /* Menor margem em telas pequenas */
+    }
+}
+
+/* Consultas de mídia para telas muito pequenas */
+@media (max-width: 480px) {
+    .feature-item {
+        max-width: 120px; /* Limite ainda menor para telas pequenas */
+        margin: 5px; /* Espaçamento mínimo em telas muito pequenas */
+    }
+
+    .feature-text h3 {
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte para telas pequenas */
+    }
+
+    .feature-text p {
+        font-size: 0.8rem; /* Ajusta o tamanho da fonte da descrição */
+    }
+}
+
+/*------------------------Filtros---------------------------------*/
+
+/* Filtros mais compactos */
+.filters {
+    width: 300px; /* Largura fixa para a barra de filtros */
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    margin: 20px; /* Ajuste a margem se necessário */
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+}
+
+.filters h2 {
+    font-size: 18px; /* Diminuir o tamanho da fonte do título */
+    color: #333;
+    margin-bottom: 10px; /* Diminuir a margem inferior */
+    border-bottom: 2px solid black;
+    padding-bottom: 8px; /* Reduzir o padding inferior */
+    display: flex;
+    justify-content: space-between; /* Espaçamento entre título e ícone */
+    align-items: center; /* Alinha verticalmente */
+}
+
+.reset-icon {
+    width: 20px; /* Ajuste o tamanho da largura conforme necessário */
+    height: 20px; /* Ajuste o tamanho da altura conforme necessário */
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.reset-icon:hover {
+    opacity: 0.8; /* Leve alteração na opacidade ao passar o mouse */
+}
+
+.filter-group {
+    margin-bottom: 10px; /* Diminuir o espaçamento entre grupos */
+}
+
+.filter-group h3 {
+    font-size: 14px; /* Reduzir o tamanho da fonte dos títulos dos grupos */
+    color: black;
+    margin-bottom: 5px; /* Diminuir o espaçamento entre o título e os checkboxes */
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.filter-group label {
+    display: flex;
+    align-items: center;
+    font-size: 12px; /* Diminuir o tamanho da fonte dos labels */
+    color: #333;
+    margin-bottom: 4px; /* Reduzir o espaçamento entre os checkboxes */
+}
+
+.filter-group input[type="number"] {
+    width: 100%;
+    padding: 4px; /* Reduzir o padding dos campos de entrada de números */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 6px; /* Diminuir o espaçamento inferior */
+    font-size: 12px;
+}
+
+.btn-filtrar {
+    background-color: black;
+    color: #fff;
+    font-size: 12px; /* Diminuir o tamanho da fonte do botão */
+    padding: 6px 12px; /* Reduzir o padding do botão */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-filtrar:hover {
+    background-color: #e5a600;
+}
+
+.filters .filter-group h3:after {
+    content: '\25BC';
+    font-size: 10px; /* Diminuir o tamanho da seta */
+    color: #333;
+}
+
+.filter-group h3.collapsed:after {
+    content: '\25B2';
+}
+
+/* Botão de limpar filtros */
+.btn-reset {
+    background-color: #ddd; /* Cor de fundo cinza claro */
+    color: #333; /* Cor do texto escuro */
+    font-size: 14px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Espaço acima do botão */
+}
+
+.btn-reset:hover {
+    background-color: #bbb; /* Cor de fundo cinza escuro ao passar o mouse */
+}
+
+/*Titulo produtos*/
+.header-section {
+    display: flex;
+    justify-content: space-between; /* Faz o título ficar à esquerda e o ordenar por à direita */
+    align-items: center; /* Alinha verticalmente ao centro */
+    padding: 5px 10px;
+    margin-bottom: 10px; /* Espaçamento entre o header e os produtos */
+}
+
+.header-section h2 {
+    font-size: 30px; /* Tamanho do título */
+    margin: 0; /* Remove margem padrão */
+}
+
+/* Estilo do botão para mostrar filtros em telas pequenas */
+.btn-show-filters {
+    display: none; /* Oculta por padrão em telas grandes */
+    bottom: 20px;
+    left: 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 100; /* Fica acima de outros elementos */
+}
+
+.btn-show-filters:hover{
+    background-color: #000;
+}
+@media (max-width: 768px) {
+    /* Estilo do botão para mostrar filtros em telas pequenas */
+    .btn-show-filters {
+        display: block; /* Mostra o botão apenas em telas pequenas */
+        margin-right: 25%;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none; /* Inicialmente oculto */
+        z-index: 9000; /* Certifique-se de que seja maior que o header */
+    }
+    
+    /* Sidebar de Filtros */
+    .filters {
+        margin-top: 0;
+        margin-left: 0;
+        position: fixed; /* Fixa na tela */
+        top: 0;
+        left: -300px; /* Começa fora da tela */
+        width: 300px; /* Largura fixa para a barra de filtros */
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-family: Arial, sans-serif;
+        height: 100%; /* Altura total */
+        transition: left 0.3s ease; /* Animação ao abrir */
+        z-index: 10000; /* Fica acima do overlay */
+        overflow-y: auto; /* Permite rolagem se o conteúdo exceder a altura */
+    }
+
+    .filters.active {
+        left: 0; /* Move para dentro da tela quando ativo */
+    }
+}
+
+/*-------------------ordem-------------------------*/
+
+/*ordenar por:*/
+.order-section {
+    display: flex;
+    align-items: center; /* Alinha verticalmente ao centro */
+    font-size: 16px;
+    padding: 5px 10px;
+    margin-right: 40px;
+    justify-content: flex-end; /* Alinha os itens ao final do contêiner */
+}
+
+.order-section label {
+    font-weight: bold; /* Opcional: deixa o rótulo em negrito */
+    margin-right: 10px; /* Espaço entre o rótulo e o select */
+    margin-bottom: 10px;
+}
+
+.order-section select {
+    padding: 5px; /* Adiciona algum preenchimento ao select */
+    border: 1px solid #ccc; /* Borda do select */
+    border-radius: 4px; /* Bordas arredondadas para o select */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    /* Modifica a ordem em telas pequenas */
+    .header-section {
+        flex-direction: column; /* Mantém o h2 acima dos filtros */
+    }
+
+    .order-section {
+        margin-top: 20px; /* Ajusta o espaço acima */
+        width: 100%; /* Garante que a seção use a largura total */
+        margin-left: 20%;
+    }
+
+    .order-group {
+        margin-left: auto; /* Mova o grupo de ordenação para a direita */
+    }
+}
+
+/*------------------Produtos------------------------------*/
+/* Lista de Produtos com largura variável */
+.product-list-container {
+    flex: 1; /* Permite que ocupe o espaço restante */
+    padding: 10px;
+}
+
+/* Estilo da lista de produtos */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Espaço entre os produtos */
+}
+
+.product-item {
+    width: 280px; /* Largura fixa para o item do produto */
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    border: 1px solid transparent; /* Define uma borda inicial transparente */
+}
+
+.product-item:hover {
+    transform: scale(1.02);
+    border-color: #0a74da; /* Borda azul neon escura ao passar o mouse */
+    position: relative;
+}
+
+/* Estilo do contêiner da imagem */
+.image-wrapper {
+    position: relative; /* Mantém a posição relativa para o controle de hover */
+    height: 300px; /* Altura fixa para manter o layout estável */
+    overflow: hidden; /* Garante que nada saia dos limites */
+}
+
+/* Ajuste das imagens para que ocupem mais espaço */
+.product-item img {
+    width: 100%;
+    height: 100%; /* Garante que a imagem ocupe todo o espaço do wrapper */
+    object-fit: contain;
+}
+
+/* Esconde a segunda imagem inicialmente */
+.hover-image {
+    display: none;
+}
+
+/* Exibe a segunda imagem ao passar o mouse */
+.image-wrapper:hover .hover-image {
+    display: block;
+}
+
+.image-wrapper:hover .main-image {
+    display: none;
+}
+
+/* Espaço entre nome do produto e valor */
+.product-item h2 {
+    margin-bottom: 20px; /* Aumentado o espaço entre o nome do produto e o valor */
+}
+
+/* Estilo do preço */
+.product-price {
+    color: #424141f7;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* Espaço entre preço antigo e preço atual */
+.product-old-price {
+    text-decoration: line-through;
+    color: #fc0000;
+    text-decoration: line-through;
+    font-size: 15px;
+}
+
+/* Ajuste da seção de ações do produto */
+.product-actions-inline {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Alinha os elementos no início */
+    gap: 10px; /* Espaço entre os elementos */
+    margin-top: 30px; /* Aumentado para maior distância do preço */
+}
+
+.quantity-section {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo transparente */
+    padding: 5px 2px; /* Reduzido */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+}
+
+.qty-btn {
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 10px;
+    text-align: center;
+}
+
+input[type="number"] {
+    width: 40px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-weight: bold;
+    color: #333;
+    margin: 0 5px;
+}
+
+/* Remover setas dos botões de número */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Estilo do botão de comprar */
+.btn-comprar {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+.btn-comprar:hover {
+    background-color: #000;
+}
+
+/* Botão WhatsApp */
+.btn-whatsapp {
+    background-color: #25D366;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 10px; /* Espaço maior para ficar abaixo dos botões de quantidade e comprar */
+    display: block; /* Garante que o botão WhatsApp fique em uma nova linha */
+}
+
+.btn-whatsapp:hover {
+    background-color: #1EB855;
+}
+
+/* Responsivo */
+@media screen and (max-width: 768px) {
+    .product-item {
+        width: calc(50% - 5px); /* Para 2 produtos por linha em telas menores */
+    }
+}
+
+/*--------------------------------Modal de login------------------------------------*/
+
+/*sucesso ou falha ao adicionar*/
+.mensagem {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745; /* Verde para sucesso */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000; /* Certifique-se de que fique acima de outros elementos */
+    transition: opacity 0.5s;
+}
+
+/* Modal de login */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Botão de login com tamanho reduzido e efeito de hover */
+.btn-login {
+    display: block;
+    padding: 8px 16px; /* Diminui o tamanho do botão */
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Efeito suave */
+}
+
+/* Efeito hover no botão de login */
+.btn-login:hover {
+    background-color: #333; /* Cor de fundo ao passar o mouse */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+}
+
+/* Botão "Continuar Olhando" centralizado e com efeito de hover */
+.btn-continue {
+    display: block;
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #000;
+    margin: 10px auto; /* Centraliza horizontalmente */
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Efeito suave */
+    width: fit-content; /* Ajusta a largura ao conteúdo */
+}
+
+/* Efeito hover no botão "Continuar Olhando" */
+.btn-continue:hover {
+    background-color: #bbb; /* Cor de fundo ao passar o mouse */
+    transform: scale(1.05); /* Aumenta ligeiramente o tamanho */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .product-item {
+        flex: 0 0 45%; /* Ajusta para mostrar 2 produtos por linha em telas menores */
+        max-width: 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-item {
+        flex: 0 0 90%; /* Em telas pequenas, cada item ocupa quase toda a largura */
+        max-width: 90%;
+    }
+}
+
+/*--------------------------------ver mais------------------------------------*/
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centraliza o botão "Ver Mais" */
+    margin-top: 20px; /* Espaçamento entre produtos e botão */
+}
+
+#ver-mais-btn {
+    width: 80%;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    margin-right: 90px;
+}
+
+#ver-mais-btn:hover {
+    background-color: #333; /* Efeito hover */
+}
+
+/*--------------------------------Footer------------------------------------*/
+
+/* Footer */
+footer {
+    background-color: black;
+    color: #fff;
+    padding: 50px 0;
+    font-size: 14px;
+}
+
+footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+footer .footer-content div {
+    width: 30%;
+    text-align: center; /* Centraliza os textos */
+}
+
+footer h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    text-align: center; /* Centraliza os títulos */
+}
+
+footer p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.payment-images {
+    margin-left: 100px;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaçamento entre as imagens */
+}
+
+footer img {
+    width: 60px; /* Tamanho igual para todas as imagens */
+    margin: 5px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid #fff;
+    padding-top: 15px;
+    font-size: 12px;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}
+
+.footer-bottom a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+.footer-bottom a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    footer .footer-content {
+        flex-direction: column; /* Coloca as colunas em linha vertical no mobile */
+        text-align: center;
+    }
+
+    footer .footer-content div {
+        width: 100%; /* Coloca cada seção com 100% de largura no mobile */
+        margin-bottom: 20px;
+    }
+
+    .payment-images {
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    footer img {
+        width: 50px; /* Ajusta o tamanho das imagens no mobile */
+    }
+}

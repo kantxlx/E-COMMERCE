@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            padding-top: 50px; /* Espaço para a margem do cabeçalho fixo */
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #003366;
+            margin: 0;
+            text-align: center;
+            flex: 1;
+        }
+
+        .back-btn {
+            text-align: right;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0066cc;
+            color: white;
+            font-size: 18px;
+        }
+
+        td {
+            font-size: 16px;
+        }
+
+        select {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            padding: 5px 10px;
+            font-size: 14px;
+            color: white;
+            background-color: #0066cc;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+
+        .alert {
+            width: 80%;
+            margin: 10px auto;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .alert-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .alert-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 8px;
+            width: 300px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .search-bar button {
+            padding: 8px 16px;
+            font-size: 16px;
+            color: white;
+            background-color: #0066cc;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+
+        form {
+            text-align: center;
+        }
+
+        form button {
+            margin-top: 10px; /* Espaçamento opcional */
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        .fade-out {
+            animation: fadeOut 3s forwards;
+        }
+    </style>
+    <script>
+        function confirmDelete() {
+            return confirm('Você tem certeza que deseja excluir este pedido?');
+        }
+
+        function searchOrder() {
+            var input = document.getElementById('search').value.toLowerCase();
+            var rows = document.querySelectorAll('tbody tr');
+
+            rows.forEach(function(row) {
+                var orderId = row.querySelector('td').textContent.toLowerCase();
+                if (orderId.includes(input)) {
+                    row.style.display = ''; // Mostrar a linha
+                } else {
+                    row.style.display = 'none'; // Ocultar a linha
+                }
+            });
+        }
+
+        // Função para fazer os alertas sumirem após 3 segundos
+        window.onload = function() {
+            setTimeout(function() {
+                var alerts = document.querySelectorAll('.alert');
+                alerts.forEach(function(alert) {
+                    alert.classList.add('fade-out');
+                    setTimeout(function() {
+                        alert.style.display = 'none';
+                    }, 3000);
+                });
+            }, 3000);
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Lista de Pedidos</h1>
+        <div class="back-btn">
+            <button onclick="window.location.href='/admin'">Voltar</button>
+        </div>
+    </div>
+
+    <% if (error.length) { %>
+        <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+    <% if (success.length) { %>
+        <div class="alert alert-success"><%= success %></div>
+    <% } %>
+
+    <!-- Barra de pesquisa -->
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="Buscar por ID do Pedido..." onkeyup="searchOrder()">
+        <button onclick="searchOrder()">Pesquisar</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID do Pedido</th>
+                <th>Data do Pedido</th> <!-- Nova coluna para Data do Pedido -->
+                <th>Nome do Cliente</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Total</th>
+                <th>Status do Pedido</th>
+                <th>Código de Rastreamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(order => { %>
+                <tr>
+                    <td><%= order._id %></td>
+                    <td><%= new Date(order.createdAt).toLocaleDateString('pt-BR') %></td> <!-- Exibe a data formatada -->
+                    <td><%= order.name %></td>
+                    <td><%= order.email %></td>
+                    <td><%= order.phone %></td>
+                    <td>R$ <%= order.totalPrice.toFixed(2) %></td>
+                    <td>
+                        <form action="/admin/update-order-status/<%= order._id %>" method="POST" style="display:inline;">
+                            <select name="orderStatus" onchange="this.form.submit()">
+                                <option value="Aguardando Pagamento" <%= order.orderStatus === 'Aguardando Pagamento' ? 'selected' : '' %>>Aguardando Pagamento</option>
+                                <option value="Pagamento Aprovado" <%= order.orderStatus === 'Pagamento Aprovado' ? 'selected' : '' %>>Pagamento Aprovado</option>
+                                <option value="Separando" <%= order.orderStatus === 'Separando' ? 'selected' : '' %>>Separando</option>
+                                <option value="Enviado" <%= order.orderStatus === 'Enviado' ? 'selected' : '' %>>Enviado</option>
+                                <option value="Em Trânsito" <%= order.orderStatus === 'Em Trânsito' ? 'selected' : '' %>>Em Trânsito</option>
+                                <option value="Entregue" <%= order.orderStatus === 'Entregue' ? 'selected' : '' %>>Entregue</option>
+                                <option value="Cancelado" <%= order.orderStatus === 'Cancelado' ? 'selected' : '' %>>Cancelado</option>
+                            </select>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/admin/update-tracking-code/<%= order._id %>" method="POST" style="text-align:center;">
+                            <input type="text" name="trackingCode" value="<%= order.trackingCode %>" placeholder="Insira código">
+                            <button type="submit">Salvar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a href="/admin/management-pedidos/<%= order._id %>">Detalhes</a>
+                        <form action="/admin/delete-order/<%= order._id %>" method="POST" style="display:inline;" onsubmit="return confirmDelete();">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

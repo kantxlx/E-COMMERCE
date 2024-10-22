@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Usuários</title>
+    <link rel="stylesheet" href="/css/login&cadastro/style.css"> <!-- Link para o CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome para os ícones -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        main {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1em;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+
+        .eye-icon {
+            margin-top: 13px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        button[style*="background-color: red"] {
+            background-color: red;
+        }
+
+        button[style*="background-color: red"]:hover {
+            background-color: darkred;
+        }
+
+        .navigation {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .navigation a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .navigation a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Página de edição de usuário carregada.");
+        });
+    </script>
+</head>
+<body>
+    <main>
+        <h2>Editar Usuário: <%= user.email %></h2>
+        <form action="/admin/update-user/<%= user._id %>" method="POST">
+            <div class="form-group">
+                <label for="password">Nova Senha:</label>
+                <input type="password" id="password" name="password" required>
+                <span class="eye-icon" onclick="togglePassword('password')"><i class="fa fa-eye"></i></span>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Senha:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <span class="eye-icon" onclick="togglePassword('confirmPassword')"><i class="fa fa-eye"></i></span>
+            </div>
+            <button type="submit">Atualizar Senha</button>
+        </form>
+        <form action="/admin/delete-user/<%= user._id %>" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
+            <button type="submit" style="background-color: red; color: white;">Excluir Usuário</button>
+        </form>
+        <div class="navigation">
+            <a href="/admin/management-users">Voltar para a Lista de Usuários</a>
+        </div>
+    </main>
+    <script src="/js/login&cadastro/script.js"></script>
+</body>
+</html>

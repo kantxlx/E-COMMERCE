@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Produto</title>
+    <link rel="stylesheet" href="/css/adminq/addproduct.css">
+    <style>
+        .message-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+            display: none; /* Inicialmente oculto */
+        }
+
+        .message-container.show {
+            display: block; /* Mostrar a mensagem quando a classe show é adicionada */
+        }
+
+        .success-message {
+            background-color: #4CAF50; /* Verde */
+        }
+
+        .error-message {
+            background-color: #f44336; /* Vermelho */
+        }
+
+        .close-btn {
+            margin-left: 10px;
+            cursor: pointer;
+            display: none; /* Inicialmente oculto */
+        }
+
+        .message-container.show .close-btn {
+            display: inline; /* Mostrar o botão de fechar quando a mensagem está visível */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Adicionar Novo Produto</h1>
+        <a href="/admin" class="btn">Voltar</a>
+    </header>
+    <main>
+        <div id="message-container" class="message-container">
+            <span id="message-text"></span>
+            <span class="close-btn" onclick="hideMessage()">X</span>
+        </div>
+
+        <form id="add-product-form" action="/admin/add-product" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="preco">Preço Atual:</label>
+                <input type="number" id="preco" name="preco" step="0.01" required>
+            </div>
+            <div class="form-group hidden" id="old-price-field">
+                <label for="preco-antigo">Preço Antigo:</label>
+                <input type="number" id="preco-antigo" name="preco-antigo" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" name="categoria" onchange="toggleOldPrice()" required>
+                    <option value="ofertas">Ofertas</option>
+                    <option value="novidades">Novidades</option>
+                    <option value="outras">Outras</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <select id="marca" name="marca" required>
+                    <option value="">Selecione a marca</option>
+                    <option value="audemars-piguet">Audemars Piguet</option>
+                    <option value="breitling">Breitling</option>
+                    <option value="cartier">Cartier</option>
+                    <option value="hublot">Hublot</option>
+                    <option value="michael-kors">Michael Kors</option>
+                    <option value="omega">Omega</option>
+                    <option value="panerai">Panerai</option>
+                    <option value="patek-philippe">Patek Philippe</option>
+                    <option value="rolex">Rolex</option>
+                    <option value="tag-heuer">Tag Heuer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="imagens">Imagens do Produto:</label>
+                <input type="file" id="imagens" name="imagens" multiple required>
+            </div>
+            <div class="form-group">
+                <label for="imagemCapa">Imagem de Capa:</label>
+                <input type="file" id="imagemCapa" name="imagemCapa" required>
+                <small>Por favor, selecione uma imagem de capa para o produto.</small>
+            </div>
+            <button type="submit" class="btn">Adicionar Produto</button>
+        </form>
+    </main>
+
+    <script>
+        function toggleOldPrice() {
+            const categoriaSelect = document.getElementById('categoria');
+            const oldPriceField = document.getElementById('old-price-field');
+            if (categoriaSelect.value === 'ofertas') {
+                oldPriceField.classList.remove('hidden');
+            } else {
+                oldPriceField.classList.add('hidden');
+            }
+        }
+    
+        function showMessage(type, message) {
+            const messageContainer = document.getElementById('message-container');
+            const messageText = document.getElementById('message-text');
+            const closeBtn = document.querySelector('.close-btn');
+
+            messageText.textContent = message;
+
+            if (type === 'success') {
+                messageContainer.classList.add('success-message');
+                messageContainer.classList.remove('error-message');
+            } else if (type === 'error') {
+                messageContainer.classList.add('error-message');
+                messageContainer.classList.remove('success-message');
+            }
+
+            messageContainer.classList.add('show');
+            closeBtn.classList.remove('hidden');
+            
+            localStorage.setItem('messageShown', 'true');
+        }
+
+        function hideMessage() {
+            const messageContainer = document.getElementById('message-container');
+            const closeBtn = document.querySelector('.close-btn');
+
+            messageContainer.classList.remove('show');
+            closeBtn.classList.add('hidden');
+            
+            localStorage.removeItem('messageShown');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const successMessage = '<%= success %>';
+            const errorMessage = '<%= error %>';
+
+            if (successMessage) {
+                showMessage('success', successMessage);
+            }
+
+            if (errorMessage) {
+                showMessage('error', errorMessage);
+            }
+        });
+    
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('close-btn')) {
+                hideMessage();
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/perfil/info.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Meus Pedidos</title>
+    <style>
+        /* Estilo para o contêiner principal */
+        .pedidos-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Título principal */
+        .pedidos-titulo {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        /* Estilo da lista de pedidos */
+        .pedidos-lista {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        /* Cada item do pedido */
+        .pedidos-item {
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .pedidos-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Detalhes do pedido */
+        .pedido-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1; /* Para ocupar espaço restante */
+            margin-right: 15px; /* Espaçamento entre informações e link */
+        }
+
+        .pedido-info p {
+            margin: 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .pedido-info strong {
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* Exibir data do pedido */
+        .pedido-data {
+            font-size: 14px;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* Link para detalhes */
+        .pedidos-detalhes-link {
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            margin-left: auto; /* Alinha o botão à direita */
+        }
+
+        .pedidos-detalhes-link:hover {
+            background-color: #0056b3;
+        }
+
+        .back-container {
+            position: fixed; /* Fixa a posição da seta em relação à tela */
+            top: 140px; /* Ajuste a altura abaixo do header/navigation-bar */
+            left: 20px; /* Define a posição da seta no canto esquerdo */
+            z-index: 999; /* Garante que a seta fique por cima de outros elementos */
+        }
+
+        .back-button {
+            color: #007bff;
+            font-size: 50px;
+            text-decoration: none;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 600px) {
+            .pedidos-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .pedidos-detalhes-link {
+                width: 100%;
+                text-align: center;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo centralizada -->
+            <div class="logo">
+                <a href="/"><img src="/img/logo1.0.png" alt="Logo da loja"></a>
+            </div>
+    
+            <!-- Área de busca e ícones -->
+            <div class="search-container">
+                <div class="search-area">
+                    <input type="text" id="search-input" placeholder="O que deseja procurar?">
+                    <button id="search-button">Buscar</button>
+                </div>
+                
+                <!-- Ícone do Central de Atendimento -->
+                <div class="logo1">
+                    <a href="#" id="openSupportModal"><img src="/img/central1.0.png" alt="Central de Atendimento"></a>
+                </div>
+    
+                <!-- Modal -->
+                <div id="supportModal" class="support-modal">
+                    <div class="support-modal-content">
+                        <span class="close-support-modal">&times;</span>
+                        <h2>Central de Atendimento</h2>
+                        <p>Escolha uma das opções abaixo:</p>
+                        <button class="support-whatsapp-btn">WhatsApp</button>
+                        <button class="support-instagram-btn">Instagram</button>
+                        <button class="support-email-btn">E-mail</button>
+                    </div>
+                </div>
+    
+                <!-- Ícone do entrar/cadastrar -->
+                <div class="logo2">
+                    <a href="/login" id="login-link">
+                        <img src="/img/login1.0.png" alt="Entrar/Cadastrar" id="login-icon">
+                    </a>
+                    <div id="perfil-menu" class="perfil-menu hidden">
+                        <ul>
+                            <li><a href="/perfil">Visualizar Perfil</a></li>
+                            <li><a href="/logout" id="logout">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Ícone do carrinho -->
+            <div class="cart">
+                <a href="#" id="cart-icon">
+                    <img src="/img/carrinho1.png" alt="Carrinho">
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+    
+            <!-- Modal do carrinho -->
+            <div id="cart-modal">
+                <div id="cart-modal-content">
+                    <span class="close-cart">&times;</span>
+                    <h2>Produtos Carrinho</h2>
+                    <div id="cart-items">
+                        <!-- Itens do carrinho serão inseridos aqui -->
+                    </div>
+                    <div class="cart-total" id="cart-total">Total: R$ 0.00</div>
+                    <button id="checkout-button" onclick="window.location.href='/cart/carrinho'">Finalizar Compra</button>
+                </div>
+            </div>
+        </header>
+    </div>
+    
+    <!-- Separador -->
+    <div class="separator"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/produtos">Produtos</a></li>
+            <li class="dropdown-container">
+                <a href="#">Marcas A a O</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=audemars-piguet" class="marca-item" data-marca="audemars-piguet">Audemars Piguet</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=breitling" class="marca-item" data-marca="breitling">Breitling</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=cartier" class="marca-item" data-marca="cartier">Cartier</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=hublot" class="marca-item" data-marca="hublot">Hublot</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=michael-kors" class="marca-item" data-marca="michael-kors">Michael Kors</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=omega" class="marca-item" data-marca="omega">Omega</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown-container">
+                <a href="#">Marcas P a Z</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=panerai" class="marca-item" data-marca="panerai">Panerai</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=patek-philippe" class="marca-item" data-marca="patek-philippe">Patek Philippe</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=rolex" class="marca-item" data-marca="rolex">Rolex</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=tag-heuer" class="marca-item" data-marca="tag-heuer">Tag Heuer</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="/produtos?categoria=ofertas">Ofertas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Container para a imagem -->
+    <div class="imagem-marcas-container">
+        <img id="marca-imagem" src="" alt="Imagem da marca" />
+    </div>
+
+    <!-- Container para a imagem -->
+    <div class="back-container">
+        <a href="javascript:history.back()" class="back-button">←</a>
+    </div>
+
+    <div class="pedidos-container">
+        <h1 class="pedidos-titulo">Meus Pedidos</h1>
+        <ul class="pedidos-lista">
+            <% orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).forEach(order => { %>
+                <li class="pedidos-item">
+                    <div class="pedido-info">
+                        <h2>Pedido ID: <strong><%= order._id %></strong></h2>
+                        <p>Status do Pedido: <strong><%= order.orderStatus %></strong></p>
+                        <p>Total: R$ <strong><%= order.totalPrice.toFixed(2) %></strong></p>
+                        <p class="pedido-data">Data do Pedido: <strong><%= new Date(order.createdAt).toLocaleDateString('pt-BR') %></strong></p>
+                    </div>
+                    <a href="/order/detalhesPedido/<%= order._id %>" class="pedidos-detalhes-link">Ver detalhes</a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="about">
+                    <h3>Sobre Kalegacy</h3>
+                    <p>Na Kalegacy, acreditamos que um relógio é muito mais do que um acessório – é uma expressão de estilo, status e personalidade. Combinando a sofisticação da relojoaria clássica com a precisão e inovação da tecnologia suíça, criamos relógios que transcendem o tempo.</p>
+                </div>
+                <div class="contact">
+                    <h3>Contato</h3>
+                    <p>WhatsApp: <a href="https://wa.me/5561995795346" target="_blank">(61) 99579-5346</a></p>
+                    <p>Email: <a href="mailto:contatokalegacy@gmail.com">contatokalegacy@gmail.com</a></p>
+                    <p>Instagram: <a href="https://www.instagram.com/kalegacy_oficial/" target="_blank">@kalegacy_oficial</a></p>
+                </div>
+                <div class="payments">
+                    <h3>Formas de pagamento</h3>
+                    <div class="payment-images">
+                        <img src="https://seeklogo.com/images/M/mercado-pago-logo-18C70D8C77-seeklogo.com.png?v=638388567980000000" alt="Mercado Pago">
+                        <img src="https://i.pinimg.com/originals/01/9a/2d/019a2d16277d159cd2ef1298a4c60ab8.png" alt="Pix">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express">
+                        <img src="https://logodownload.org/wp-content/uploads/2019/09/boleto-logo-0.png" alt="Boleto">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kalegacy. Todos os direitos reservados.</p>
+                <p>Desenvolvido por <a href="https://github.com/kantxlx" target="_blank">BiteConecta</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/perfil/info.js"></script>
+</body>
+</html>

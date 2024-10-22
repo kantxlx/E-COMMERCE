@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login&cadastro/style.css"> <!-- Link para o CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome para os ícones -->
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <% if (typeof error !== 'undefined' && error.length > 0) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+        <form action="/login" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Senha:</label>
+            <div class="input-group">
+                <input type="password" id="password" name="password" required>
+                <span class="eye-icon" onclick="togglePassword('password')"><i class="fa fa-eye"></i></span>
+            </div>
+            <button type="submit" class="button-zoom">Entrar</button>
+        </form>
+        <div class="separator"></div>
+        <p class="link-login">Não tem conta ainda? <a href="/cadastro" class="button-zoom">Cadastre-se</a></p>
+        <p class="link-login"><a href="/user/forgot-password" class="button-zoom">Esqueci a senha</a></p>
+    </div>
+    <script src="/js/login&cadastro/script.js"></script>
+</body>
+</html>

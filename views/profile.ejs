@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <link rel="stylesheet" href="/css/perfil/info.css">
+    <style>
+        .container {
+            background-color: #f0f0f0; /* Fundo do container */
+            padding: 20px;
+            border-radius: 10px; /* Bordas arredondadas */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra */
+            width: 300px; /* Largura do formulário */
+            position: relative; /* Para posicionar a mensagem de erro/sucesso */
+            margin: 30px auto; /* Centraliza o container */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000000; /* Preto */
+        }
+
+        .form-group {
+            position: relative; /* Necessário para o posicionamento do ícone */
+            margin-bottom: 20px; /* Espaço entre os campos */
+        }
+
+        .input-group {
+            position: relative; /* Necessário para o posicionamento do ícone */
+            display: flex; /* Para centralizar os itens dentro do grupo */
+            align-items: center; /* Centraliza verticalmente */
+        }
+
+        .input-password, .input-text {
+            width: 100%; /* Largura total */
+            padding: 10px; /* Espaçamento interno */
+            border: 1px solid black; /* Borda azul */
+            border-radius: 5px; /* Bordas arredondadas */
+            background-color: #ffffff; /* Fundo do input */
+            color: #000000; /* Texto do input */
+        }
+
+        .input-password:focus, .input-text:focus {
+            outline: none; /* Remove contorno padrão ao focar */
+            border-color: black; /* Borda azul ao focar */
+        }
+
+        /* Estilos do botão */
+        .button-custom {
+            width: 100%; /* Largura total */
+            padding: 10px; /* Espaçamento interno */
+            background-color: black; /* Fundo azul */
+            border: none; /* Sem borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            color: #ffffff; /* Texto branco */
+            font-size: 16px; /* Tamanho da fonte */
+            cursor: pointer; /* Mão ao passar o mouse */
+            transition: background-color 0.3s; /* Transição suave ao passar o mouse */
+        }
+
+        .button-custom:hover {
+            background-color: #007bff; /* Azul mais escuro ao passar o mouse */
+        }
+
+        .small-button {
+            font-size: 10px; /* Tamanho menor da fonte */
+            padding: 5px; /* Reduzir o espaço interno */
+            width: auto; /* Ajusta a largura do botão */
+            margin-top: 5px; /* Espaço acima do botão */
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 10px; /* Distância da borda direita */
+            top: 50%; /* Centralizado verticalmente */
+            transform: translateY(-50%); /* Centraliza corretamente */
+            cursor: pointer; /* Mão ao passar o mouse */
+            font-size: 18px; /* Tamanho do ícone */
+            color: rgba(0, 0, 0, 0.5); /* Cor do ícone */
+            padding: 5px; /* Espaçamento interno */
+        }
+
+        .eye-icon:hover {
+            color: #555559; /* Azul ao passar o mouse */
+        }
+
+        .eye-icon.strike:after {
+            content: ''; /* Cria um elemento vazio */
+            position: absolute;
+            top: 50%; /* Centraliza verticalmente sobre o ícone */
+            left: 50%; /* Centraliza horizontalmente sobre o ícone */
+            width: 100%; /* Largura total */
+            height: 2px; /* Altura do traço */
+            background-color: #000000; /* Cor do traço */
+            transform: translate(-50%, -50%) rotate(45deg); /* Centraliza e rotaciona 45 graus */
+            z-index: 1; /* Coloca o traço acima do ícone */
+        }
+
+        /* Estilo da mensagem de erro/sucesso */
+        .message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #28a745; /* Verde para sucesso */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000; /* Certifique-se de que fique acima de outros elementos */
+            transition: opacity 0.5s;
+            display: none; /* Oculta por padrão */
+        }
+
+        .message.success {
+            background-color: #d4edda; /* Fundo verde claro */
+            color: #155724; /* Texto verde escuro */
+        }
+
+        .message.error {
+            background-color: #f8d7da; /* Fundo vermelho claro */
+            color: #721c24; /* Texto vermelho escuro */
+        }
+
+        .back-container {
+            position: fixed; /* Fixa a posição da seta em relação à tela */
+            top: 140px; /* Ajuste a altura abaixo do header/navigation-bar */
+            left: 20px; /* Define a posição da seta no canto esquerdo */
+            z-index: 999; /* Garante que a seta fique por cima de outros elementos */
+        }
+
+        .back-button {
+            color: #007bff;
+            font-size: 50px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo centralizada -->
+            <div class="logo">
+                <a href="/"><img src="/img/logo1.0.png" alt="Logo da loja"></a>
+            </div>
+    
+            <!-- Área de busca e ícones -->
+            <div class="search-container">
+                <div class="search-area">
+                    <input type="text" id="search-input" placeholder="O que deseja procurar?">
+                    <button id="search-button">Buscar</button>
+                </div>
+                
+                <!-- Ícone do Central de Atendimento -->
+                <div class="logo1">
+                    <a href="#" id="openSupportModal"><img src="/img/central1.0.png" alt="Central de Atendimento"></a>
+                </div>
+    
+                <!-- Modal -->
+                <div id="supportModal" class="support-modal">
+                    <div class="support-modal-content">
+                        <span class="close-support-modal">&times;</span>
+                        <h2>Central de Atendimento</h2>
+                        <p>Escolha uma das opções abaixo:</p>
+                        <button class="support-whatsapp-btn">WhatsApp</button>
+                        <button class="support-instagram-btn">Instagram</button>
+                        <button class="support-email-btn">E-mail</button>
+                    </div>
+                </div>
+    
+                <!-- Ícone do entrar/cadastrar -->
+                <div class="logo2">
+                    <a href="/login" id="login-link">
+                        <img src="/img/login1.0.png" alt="Entrar/Cadastrar" id="login-icon">
+                    </a>
+                    <div id="perfil-menu" class="perfil-menu hidden">
+                        <ul>
+                            <li><a href="/perfil">Visualizar Perfil</a></li>
+                            <li><a href="/logout" id="logout">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Ícone do carrinho -->
+            <div class="cart">
+                <a href="#" id="cart-icon">
+                    <img src="/img/carrinho1.png" alt="Carrinho">
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+    
+            <!-- Modal do carrinho -->
+            <div id="cart-modal">
+                <div id="cart-modal-content">
+                    <span class="close-cart">&times;</span>
+                    <h2>Produtos Carrinho</h2>
+                    <div id="cart-items">
+                        <!-- Itens do carrinho serão inseridos aqui -->
+                    </div>
+                    <div class="cart-total" id="cart-total">Total: R$ 0.00</div>
+                    <button id="checkout-button" onclick="window.location.href='/cart/carrinho'">Finalizar Compra</button>
+                </div>
+            </div>
+        </header>
+    </div>
+    
+    <!-- Separador -->
+    <div class="separator"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/produtos">Produtos</a></li>
+            <li class="dropdown-container">
+                <a href="#">Marcas A a O</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=audemars-piguet" class="marca-item" data-marca="audemars-piguet">Audemars Piguet</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=breitling" class="marca-item" data-marca="breitling">Breitling</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=cartier" class="marca-item" data-marca="cartier">Cartier</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=hublot" class="marca-item" data-marca="hublot">Hublot</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=michael-kors" class="marca-item" data-marca="michael-kors">Michael Kors</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=omega" class="marca-item" data-marca="omega">Omega</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown-container">
+                <a href="#">Marcas P a Z</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=panerai" class="marca-item" data-marca="panerai">Panerai</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=patek-philippe" class="marca-item" data-marca="patek-philippe">Patek Philippe</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=rolex" class="marca-item" data-marca="rolex">Rolex</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=tag-heuer" class="marca-item" data-marca="tag-heuer">Tag Heuer</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="/produtos?categoria=ofertas">Ofertas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Container para a imagem -->
+    <div class="imagem-marcas-container">
+        <img id="marca-imagem" src="" alt="Imagem da marca" />
+    </div>
+
+    <!-- Container para a imagem -->
+    <div class="back-container">
+        <a href="javascript:history.back()" class="back-button">←</a>
+    </div>
+
+    <div class="container">
+        <h1>Editar Perfil</h1>
+    
+        <!-- Mensagem de sucesso ou erro -->
+        <div class="message" id="message"></div>
+    
+        <form id="profile-form" method="POST" action="/user/profile/edit/<%= userId %>">
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" name="name" id="name" class="input-text" value="<%= name %>" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" class="input-text" value="<%= email %>" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="securityQuestion">Pergunta Secreta:</label>
+                <input type="text" name="securityQuestion" id="securityQuestion" class="input-text" value="<%= securityQuestion || 'Pergunta não definida' %>" readonly>
+                <div style="text-align: center;">
+                    <button id="change-secret-question" class="button-custom small-button" type="button">Alterar Pergunta Secreta</button>
+                </div>
+            </div>
+    
+            <!-- Contêiner para a nova pergunta secreta -->
+            <div id="nova-pergunta-container" style="display: none;">
+                <h3>Alterar Pergunta Secreta</h3>
+                <div class="form-group">
+                    <label for="newSecurityQuestion">Nova Pergunta Secreta:</label>
+                    <input type="text" name="newSecurityQuestion" id="newSecurityQuestion" class="input-text">
+                </div>
+    
+                <div class="form-group">
+                    <label for="newSecurityAnswer">Nova Resposta Secreta:</label>
+                    <input type="text" name="newSecurityAnswer" id="newSecurityAnswer" class="input-text">
+                </div>
+            </div>
+    
+            <button type="submit" class="button-custom">Salvar Alterações</button>
+        </form>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div>
+            <div class="footer-content">
+                <div class="about">
+                    <h3>Sobre Kalegacy</h3>
+                    <p>Na Kalegacy, acreditamos que um relógio é muito mais do que um acessório – é uma expressão de estilo, status e personalidade. Combinando a sofisticação da relojoaria clássica com a precisão e inovação da tecnologia suíça, criamos relógios que transcendem o tempo.</p>
+                </div>
+                <div class="contact">
+                    <h3>Contato</h3>
+                    <p>WhatsApp: <a href="https://wa.me/5561995795346" target="_blank">(61) 99579-5346</a></p>
+                    <p>Email: <a href="mailto:contatokalegacy@gmail.com">contatokalegacy@gmail.com</a></p>
+                    <p>Instagram: <a href="https://www.instagram.com/kalegacy_oficial/" target="_blank">@kalegacy_oficial</a></p>
+                </div>
+                <div class="payments">
+                    <h3>Formas de pagamento</h3>
+                    <div class="payment-images">
+                        <img src="https://seeklogo.com/images/M/mercado-pago-logo-18C70D8C77-seeklogo.com.png?v=638388567980000000" alt="Mercado Pago">
+                        <img src="https://i.pinimg.com/originals/01/9a/2d/019a2d16277d159cd2ef1298a4c60ab8.png" alt="Pix">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express">
+                        <img src="https://logodownload.org/wp-content/uploads/2019/09/boleto-logo-0.png" alt="Boleto">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kalegacy. Todos os direitos reservados.</p>
+                <p>Desenvolvido por <a href="https://github.com/kantxlx" target="_blank">BiteConecta</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Exibir e ocultar a seção para alterar a pergunta secreta
+        document.getElementById('change-secret-question').addEventListener('click', function() {
+            const container = document.getElementById('nova-pergunta-container');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        });
+
+        
+        // Função para mostrar a mensagem
+        function mostrarMensagem(mensagem, tipo) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerText = mensagem; // Adiciona a mensagem
+            messageDiv.classList.add(tipo === 'success' ? 'success' : 'error'); // Adiciona a classe de erro ou sucesso
+            messageDiv.style.display = 'block'; // Exibe a mensagem
+    
+            setTimeout(() => {
+                messageDiv.style.display = 'none'; // Oculta a mensagem após 5 segundos
+            }, 5000);
+        }
+    
+        // Exibe mensagens de sucesso ou erro com base nas variáveis do servidor
+        window.onload = function() {
+            const successMessage = '<%= successMessage.length ? successMessage : "" %>'; // Mensagem de sucesso
+            const errorMessage = '<%= errorMessage.length ? errorMessage : "" %>'; // Mensagem de erro
+
+            if (successMessage) {
+                mostrarMensagem(successMessage, 'success');
+            } else if (errorMessage) {
+                mostrarMensagem(errorMessage, 'error');
+            }
+        };
+
+
+    </script>
+    <script src="/js/perfil/info.js"></script>
+</body>
+</html>

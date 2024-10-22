@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/css/login&cadastro/style.css"> <!-- Link para o CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome para os ícones -->
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro</h1>
+        <% if (typeof error !== 'undefined' && error.length > 0) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+        <form action="/cadastro" method="post">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Senha:</label>
+            <div class="input-group">
+                <input type="password" id="password" name="password" required>
+                <span class="eye-icon" onclick="togglePassword('password')"><i class="fa fa-eye"></i></span>
+            </div>
+            
+            <label for="confirmPassword">Confirmar Senha:</label>
+            <div class="input-group">
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <span class="eye-icon" onclick="togglePassword('confirmPassword')"><i class="fa fa-eye"></i></span>
+            </div>
+            
+            <!-- Campos para pergunta secreta e resposta -->
+            <label for="securityQuestion">Escolha uma pergunta Secreta:
+                <i class="fa fa-question-circle" id="tooltip-icon" title="Essa pergunta será usada para recuperar sua conta caso esqueça a senha."></i>
+            </label>
+            <input type="text" id="securityQuestion" name="securityQuestion" required>
+            
+            <label for="securityAnswer">Resposta da sua pergunta secreta:</label>
+            <input type="text" id="securityAnswer" name="securityAnswer" required>
+            
+            <button type="submit" class="button-zoom">Cadastrar</button>
+        </form>
+        <div class="separator"></div>
+        <p class="link-login">Já tem conta? <a href="/login">Entrar</a></p>
+    </div>
+    <script src="/js/login&cadastro/script.js"></script>
+</body>
+</html>

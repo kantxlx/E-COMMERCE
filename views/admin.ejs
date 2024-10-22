@@ -1,0 +1,36 @@
+<!-- admin.ejs -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração</title>
+    <link rel="stylesheet" href="/css/adminq/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Painel de Administração Kalegacy</h1>
+        </div>
+        <a href="/logout" class="logout-btn">Logout</a>
+    </header>
+    <main>
+        <div class="buttons-container">
+            <a href="/admin/add-product" class="btn">Adicionar Produtos</a>
+            <a href="/admin/edit-products" class="btn">Editar Produtos</a>
+            <a href="/admin/adminPedidos" class="btn">Visualizar Pedidos</a>
+            <a href="/admin/management-users" class="btn">Visualizar Usuarios</a>
+        </div>
+    </main>
+
+    <!-- Mensagem de sucesso -->
+    <% if (success && success.length > 0) { %>
+        <div class="success-message"><%= success %> <span class="close-btn" onclick="this.parentElement.style.display='none';">X</span></div>
+    <% } %>
+    
+    <!-- Mensagem de erro -->
+    <% if (error && error.length > 0) { %>
+        <div class="error-message"><%= error %> <span class="close-btn" onclick="this.parentElement.style.display='none';">X</span></div>
+    <% } %>
+</body>
+</html>

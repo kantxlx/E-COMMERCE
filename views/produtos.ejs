@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos</title>
+    <link rel="stylesheet" href="/css/products/style.css">
+</head>
+    <body>
+        <div class="header-container">
+            <!-- Main Header -->
+            <header class="main-header">
+                <!-- Logo centralizada -->
+                <div class="logo">
+                    <a href="/"><img src="/img/logo1.0.png" alt="Logo da loja"></a>
+                </div>
+        
+                <!-- Área de busca e ícones -->
+                <div class="search-container">
+                    <div class="search-area">
+                        <input type="text" id="search-input" placeholder="O que deseja procurar?">
+                        <button id="search-button">Buscar</button>
+                    </div>
+                    
+                    <!-- Ícone do Central de Atendimento -->
+                    <div class="logo1">
+                        <a href="#" id="openSupportModal"><img src="/img/central1.0.png" alt="Central de Atendimento"></a>
+                    </div>
+        
+                    <!-- Modal -->
+                    <div id="supportModal" class="support-modal">
+                        <div class="support-modal-content">
+                            <span class="close-support-modal">&times;</span>
+                            <h2>Central de Atendimento</h2>
+                            <p>Escolha uma das opções abaixo:</p>
+                            <button class="support-whatsapp-btn">WhatsApp</button>
+                            <button class="support-instagram-btn">Instagram</button>
+                            <button class="support-email-btn">E-mail</button>
+                        </div>
+                    </div>
+        
+                    <!-- Ícone do entrar/cadastrar -->
+                    <div class="logo2">
+                        <a href="/login" id="login-link">
+                            <img src="/img/login1.0.png" alt="Entrar/Cadastrar" id="login-icon">
+                        </a>
+                        <div id="perfil-menu" class="perfil-menu hidden">
+                            <ul>
+                                <li><a href="/perfil">Visualizar Perfil</a></li>
+                                <li><a href="/logout" id="logout">Sair</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Ícone do carrinho -->
+                <div class="cart">
+                    <a href="#" id="cart-icon">
+                        <img src="/img/carrinho1.png" alt="Carrinho">
+                        <span id="cart-count">0</span>
+                    </a>
+                </div>
+        
+                <!-- Modal do carrinho -->
+                <div id="cart-modal">
+                    <div id="cart-modal-content">
+                        <span class="close-cart">&times;</span>
+                        <h2>Produtos Carrinho</h2>
+                        <div id="cart-items">
+                            <!-- Itens do carrinho serão inseridos aqui -->
+                        </div>
+                        <div class="cart-total" id="cart-total">Total: R$ 0.00</div>
+                        <button id="checkout-button" onclick="window.location.href='/cart/carrinho'">Finalizar Compra</button>
+                    </div>
+                </div>
+            </header>
+        </div>
+        
+        <!-- Separador -->
+        <div class="separator"></div>
+        
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/produtos">Produtos</a></li>
+                <li class="dropdown-container">
+                    <a href="#">Marcas A a O</a>
+                    <ul class="dropdown">
+                        <li>
+                            <a href="/produtos?marca=audemars-piguet" class="marca-item" data-marca="audemars-piguet">Audemars Piguet</a>
+                        </li>
+                        <li>
+                            <a href="/produtos?marca=breitling" class="marca-item" data-marca="breitling">Breitling</a>
+                        </li>
+                        <li>
+                            <a href="/produtos?marca=cartier" class="marca-item" data-marca="cartier">Cartier</a>
+                        </li>
+                        <li>
+                            <a href="/produtos?marca=hublot" class="marca-item" data-marca="hublot">Hublot</a>
+                        </li>
+                        <li>
+                            <a href="/produtos?marca=michael-kors" class="marca-item" data-marca="michael-kors">Michael Kors</a>
+                        </li>
+                        <li>
+                            <a href="/produtos?marca=omega" class="marca-item" data-marca="omega">Omega</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown-container">
+                    <a href="#">Marcas P a Z</a>
+                    <ul class="dropdown">
+                        <li>
+                            <a href="/produtos?marca=panerai" class="marca-item" data-marca="panerai">Panerai</a>
+                        </li>
+                        <li>
+                            <a href="/produtos?marca=patek-philippe" class="marca-item" data-marca="patek-philippe">Patek Philippe</a>
+                        </li>
+                        <li>
+                            <a href="/produtos?marca=rolex" class="marca-item" data-marca="rolex">Rolex</a>
+                        </li>
+                        <li>
+                            <a href="/produtos?marca=tag-heuer" class="marca-item" data-marca="tag-heuer">Tag Heuer</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="/produtos?categoria=ofertas">Ofertas</a></li>
+            </ul>
+        </nav>
+
+        <!-- Container para a imagem -->
+        <div class="imagem-marcas-container">
+            <img id="marca-imagem" src="" alt="Imagem da marca" />
+        </div>
+
+        <!-- O que oferecemos -->
+        <section class="features">
+            <div class="feature-item">
+                <img src="img/pecas.png" alt="Peças Exclusivas">
+                <div class="feature-text">
+                    <h3>Peças Exclusivas</h3>
+                    <p>Novidades toda semana</p>
+                </div>
+            </div>
+        
+            <div class="feature-item">
+                <img src="/img/comprasegura.png" alt="Compra 100% Segura">
+                <div class="feature-text">
+                    <h3>Compra 100% Segura</h3>
+                    <p>Alta tecnologia</p>
+                </div>
+            </div>
+        
+            <div class="feature-item">
+                <img src="/img/entrega.png" alt="Entrega no Brasil">
+                <div class="feature-text">
+                    <h3>Entrega gratis em todo Brasil</h3>
+                    <p>Cobertura Nacional</p>
+                </div>
+            </div>
+        </section>
+
+        <main>
+            <div class="container">
+                <!-- Sidebar de Filtros -->
+                <aside class="filters">
+                    <h2>
+                        Filtrar Produtos
+                        <img src="/img/filtro.png" alt="Limpar Filtros" class="reset-icon" />
+                    </h2>
+                    <form method="get" action="/produtos">
+                        <!-- Filtro por Categorias -->
+                        <div class="filter-group">
+                            <h3>Categorias</h3>
+                            <label><input type="checkbox" name="categoria" value="novidades"> Novidades</label><br>
+                            <label><input type="checkbox" name="categoria" value="ofertas"> Ofertas</label><br>
+                            <label><input type="checkbox" name="categoria" value="outros"> Outros</label><br>
+                        </div>
+        
+                        <!-- Filtro por Marcas -->
+                        <div class="filter-group">
+                            <h3>Marcas</h3>
+                            <label><input type="checkbox" name="marca" value="omega"> Omega</label><br>
+                            <label><input type="checkbox" name="marca" value="hublot"> Hublot</label><br>
+                            <label><input type="checkbox" name="marca" value="audemars-piguet"> Audemars Piguet</label><br>
+                            <label><input type="checkbox" name="marca" value="rolex"> Rolex</label><br>
+                            <label><input type="checkbox" name="marca" value="breitling"> Breitling</label><br>
+                            <label><input type="checkbox" name="marca" value="cartier"> Cartier</label><br>
+                            <label><input type="checkbox" name="marca" value="michel-kors"> Michel Kors</label><br>
+                            <label><input type="checkbox" name="marca" value="panerai"> Panerai</label><br>
+                            <label><input type="checkbox" name="marca" value="tag-heuer"> Tag Heuer</label><br>
+                            <label><input type="checkbox" name="marca" value="patek-philippe"> Patek Philippe</label><br>
+                        </div>
+        
+                        <!-- Filtro por Preço com Faixas Predefinidas -->
+                        <div class="filter-group">
+                            <h3>Preço</h3>
+                            <label><input type="radio" name="preco" value="ate1000"> Até R$ 1.000</label><br>
+                            <label><input type="radio" name="preco" value="1000a5000"> R$ 1.000 a R$ 5.000</label><br>
+                            <label><input type="radio" name="preco" value="5000a10000"> R$ 5.000 a R$ 10.000</label><br>
+                            <label><input type="radio" name="preco" value="10000a20000"> R$ 10.000 a R$ 20.000</label><br>
+                            <label><input type="radio" name="preco" value="acima20000"> Acima de R$ 20.000</label><br>
+                        </div>
+        
+                        <!-- Campo para Inserir o Valor Mínimo e Máximo -->
+                        <div class="filter-group">
+                            <h3>Filtrar por Faixa de Preço</h3>
+                            <label for="minPrice">Valor Mínimo:</label><br>
+                            <input type="number" name="minPrice" id="minPrice" placeholder="Ex: 1000" min="0"><br>
+                            <label for="maxPrice">Valor Máximo:</label><br>
+                            <input type="number" name="maxPrice" id="maxPrice" placeholder="Ex: 20000" min="0"><br>
+                        </div>
+        
+                        <button type="submit" class="btn-filtrar">Filtrar</button>
+                    </form>
+                </aside>
+
+                <!-- Lista de Produtos -->
+                <div class="product-list-container">
+                    <div class="header-section">
+                        <h2>Produtos</h2>
+                        <div class="order-section">
+                            <!-- Botão para Mostrar Filtros em Telas Pequenas -->
+                            <button class="btn-show-filters" onclick="toggleFilters()">Filtrar</button>
+                            <div class="overlay"></div>
+                            <label for="ordenar">Ordenar por:</label>
+                            <div class="filter-group">
+                                <select id="ordenar" name="ordenar" onchange="ordenarProdutos()">
+                                    <option value="">Selecione</option>
+                                    <option value="preco-asc">Preço: Menor para o Maior</option>
+                                    <option value="preco-desc">Preço: Maior para o Menor</option>
+                                    <option value="nome-asc">Nome: A-Z</option>
+                                    <option value="nome-desc">Nome: Z-A</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="product-list" id="product-list">
+                        <% let contador = 0; %>
+                        <% produtos.forEach(produto => { %>
+                            <% if (contador < 500) { %>
+                            <div class="product-item">
+                                <a href="/product-details/<%= produto._id %>" class="product-link">
+                                    <div class="image-wrapper">
+                                        <!-- Mostra imagem 1 por padrão e imagem 2 no hover -->
+                                        <img src="/uploads/<%= produto.imagemCapa ? produto.imagemCapa : produto.imagens[0] %>" alt="<%= produto.nome %>" class="main-image">
+                                        <% if (produto.imagens.length > 1) { %>
+                                            <img src="/uploads/<%= produto.imagens[1] %>" alt="<%= produto.nome %>" class="hover-image">
+                                            <% } %>
+                                    </div>
+                                    <h2><%= produto.nome %></h2>
+                                </a>
+        
+                                <!-- Preço antigo (se houver desconto) -->
+                                <% if (produto.precoAntigo) { %>
+                                    <p class="product-old-price">R$ <%= produto.precoAntigo %></p>
+                                <% } %>
+                                <!-- Preço atual -->
+                                <p class="product-price">R$ <%= produto.preco %></p>
+        
+                                <!-- Seção de quantidade e botões alinhados na mesma linha -->
+                                <div class="product-actions-inline">
+                                    <div class="quantity-section">
+                                        <button class="qty-btn" onclick="decreaseQty('<%= produto._id %>')">-</button>
+                                        <input type="number" id="quantidade-<%= produto._id %>" name="quantidade" value="1" min="1">
+                                        <button class="qty-btn" onclick="increaseQty('<%= produto._id %>')">+</button>
+                                    </div>
+        
+                                    <!-- Botão para adicionar ao carrinho -->
+                                    <button class="btn-comprar" data-id="<%= produto._id %>">Comprar</button>
+                                </div>
+        
+                                <!-- Botão para comprar pelo WhatsApp -->
+                                <a href="https://api.whatsapp.com/send?phone=+556195795346&text=Quero%20saber%20mais%20sobre%20o%20produto%20<%= produto.nome %>"
+                                    class="btn-whatsapp" target="_blank">Comprar no WhatsApp</a>
+                            </div>
+                            <% } %>
+                            <% contador++; %>
+                        <% }) %>
+        
+                        <div id="mensagem" class="mensagem" style="display: none;"></div>
+                        <!-- Modal para login -->
+                        <div id="modal-login" class="modal" style="display: none;">
+                            <div class="modal-content">
+                                <p>Para continuar a compra, entre ou cadastre no nosso site.</p>
+                                <a href="/login" class="btn-login">Fazer Login</a>
+                                <button class="btn-continue">Continuar Olhando</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Botão "Ver Mais" para carregar mais 15 produtos, colocado abaixo da lista -->
+                    <div class="button-container">
+                        <% if (produtos.length > 15) { %>
+                        <button id="ver-mais-btn" onclick="carregarMaisProdutos()">Ver mais</button>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <div>
+                <div class="footer-content">
+                    <div class="about">
+                        <h3>Sobre Kalegacy</h3>
+                        <p>Na Kalegacy, acreditamos que um relógio é muito mais do que um acessório – é uma expressão de estilo, status e personalidade. Combinando a sofisticação da relojoaria clássica com a precisão e inovação da tecnologia suíça, criamos relógios que transcendem o tempo.</p>
+                    </div>
+                    <div class="contact">
+                        <h3>Contato</h3>
+                        <p>WhatsApp: <a href="https://wa.me/5561995795346" target="_blank">(61) 99579-5346</a></p>
+                        <p>Email: <a href="mailto:contatokalegacy@gmail.com">contatokalegacy@gmail.com</a></p>
+                        <p>Instagram: <a href="https://www.instagram.com/kalegacy_oficial/" target="_blank">@kalegacy_oficial</a></p>
+                    </div>
+                    <div class="payments">
+                        <h3>Formas de pagamento</h3>
+                        <div class="payment-images">
+                            <img src="https://seeklogo.com/images/M/mercado-pago-logo-18C70D8C77-seeklogo.com.png?v=638388567980000000" alt="Mercado Pago">
+                            <img src="https://i.pinimg.com/originals/01/9a/2d/019a2d16277d159cd2ef1298a4c60ab8.png" alt="Pix">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express">
+                            <img src="https://logodownload.org/wp-content/uploads/2019/09/boleto-logo-0.png" alt="Boleto">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard">
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Kalegacy. Todos os direitos reservados.</p>
+                    <p>Desenvolvido por <a href="https://github.com/kantxlx" target="_blank">BiteConecta</a></p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Scripts -->
+        <script src="js/products/script.js"></script>
+    </body>
+</html>

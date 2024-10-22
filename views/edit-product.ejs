@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Produto</title>
+    <link rel="stylesheet" href="/css/adminq/editproduct.css">
+</head>
+<body>
+    <header>
+        <h1>Editar Produto</h1>
+        <a href="/admin/edit-products" class="btn">Voltar</a>
+    </header>
+    <main>
+        <div id="message-container" class="message-container">
+            <span id="message-text"></span>
+            <span class="close-btn" onclick="hideMessage()">X</span>
+        </div>
+
+        <form id="edit-product-form" action="/admin/edit-product/<%= product._id %>" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="<%= product.nome %>" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" rows="4" required><%= product.descricao %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="preco">Preço Atual:</label>
+                <input type="number" id="preco" name="preco" step="0.01" value="<%= product.preco %>" required>
+            </div>
+            <div class="form-group hidden" id="old-price-field">
+                <label for="preco-antigo">Preço Antigo:</label>
+                <input type="number" id="preco-antigo" name="preco-antigo" step="0.01" value="<%= product.precoAntigo || '' %>">
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" name="categoria" onchange="toggleOldPrice()" required>
+                    <option value="ofertas" <%= product.categoria === 'ofertas' ? 'selected' : '' %>>Ofertas</option>
+                    <option value="novidades" <%= product.categoria === 'novidades' ? 'selected' : '' %>>Novidades</option>
+                    <option value="outras" <%= product.categoria === 'outras' ? 'selected' : '' %>>Outras</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="marca">Marca:</label>
+                <select id="marca" name="marca" required>
+                    <option value="" <%= !product.marca ? 'selected' : '' %>>Selecione a marca</option>
+                    <option value="audemars-piguet" <%= product.marca === 'audemars-piguet' ? 'selected' : '' %>>Audemars Piguet</option>
+                    <option value="breitling" <%= product.marca === 'breitling' ? 'selected' : '' %>>Breitling</option>
+                    <option value="cartier" <%= product.marca === 'cartier' ? 'selected' : '' %>>Cartier</option>
+                    <option value="hublot" <%= product.marca === 'hublot' ? 'selected' : '' %>>Hublot</option>
+                    <option value="michael-kors" <%= product.marca === 'michael-kors' ? 'selected' : '' %>>Michael Kors</option>
+                    <option value="omega" <%= product.marca === 'omega' ? 'selected' : '' %>>Omega</option>
+                    <option value="tag-heuer" <%= product.marca === 'tag-heuer' ? 'selected' : '' %>>Tag Heuer</option>
+                    <option value="tag-heuer" <%= product.marca === 'rolex' ? 'selected' : '' %>>Rolex</option>
+                    <option value="tag-heuer" <%= product.marca === 'panerai' ? 'selected' : '' %>>Panerai</option>
+                    <option value="tag-heuer" <%= product.marca === 'patek-philippe' ? 'selected' : '' %>>Patek Philippe</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="imagens">Imagens:</label>
+                <input type="file" id="imagens" name="imagens" multiple>
+                <div id="existing-images">
+                    <% product.imagens.forEach(image => { %>
+                        <img src="/uploads/<%= image %>" alt="Imagem do produto" class="product-image">
+                    <% }) %>
+                </div>
+            </div>
+            <button type="submit" class="btn">Atualizar Produto</button>
+        </form>
+        <form id="delete-product-form" action="/admin/delete-product/<%= product._id %>" method="POST" style="margin-top: 20px;" onsubmit="return confirm('Tem certeza de que deseja excluir este produto?')">
+            <button type="submit" class="delete-btn">Excluir Produto</button>
+        </form>
+        
+    </main>
+    <script>
+        function toggleOldPrice() {
+            const categoria = document.getElementById('categoria').value;
+            document.getElementById('old-price-field').classList.toggle('hidden', categoria !== 'ofertas');
+        }
+
+        function hideMessage() {
+            document.getElementById('message-container').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

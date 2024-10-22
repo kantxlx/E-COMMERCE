@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/perfil/info.css">
+    <title>Detalhes do Pedido</title>
+    <style>
+        .container-pedido {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    
+        main {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            max-width: 100%; /* Garante que não exceda a largura da tela */
+            margin-top: 20px; /* Adiciona margem acima do main */
+            margin-bottom: 20px; /* Adiciona margem abaixo do main */
+        }
+    
+        h1 {
+            margin: 0;
+            font-size: 30px;
+            text-align: center;
+        }
+    
+        h2 {
+            margin-top: 20px;
+            color: #0056b3; /* Azul mais escuro */
+        }
+    
+        .order-info,
+        .order-items {
+            list-style-type: none;
+            padding: 0;
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px; /* Cantos arredondados */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+    
+        .order-info li,
+        .order-items li {
+            margin: 10px 0;
+            font-size: 16px; /* Tamanho de fonte maior */
+        }
+    
+        .order-items img {
+            max-width: 100px; /* Largura máxima da imagem */
+            margin-right: 15px; /* Espaçamento à direita da imagem */
+            border-radius: 5px; /* Bordas arredondadas para a imagem */
+        }
+    
+        .order-items li {
+            display: flex; /* Flexbox para alinhar imagem e texto */
+            align-items: center; /* Alinhamento vertical */
+        }
+    
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Espaço entre os botões */
+            margin-top: 20px;
+            flex-wrap: wrap; /* Permite que os botões ocupem múltiplas linhas */
+        }
+    
+        button {
+            background-color: #007bff; /* Azul */
+            color: white;
+            border: none;
+            padding: 12px 20px; /* Botão mais largo */
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Tamanho de fonte do botão */
+            transition: background-color 0.3s, transform 0.2s; /* Transição suave */
+        }
+    
+        button:hover {
+            background-color: #0056b3; /* Azul escuro ao passar o mouse */
+            transform: translateY(-2px); /* Leve elevação no hover */
+        }
+    
+        .cancel-button {
+            background-color: #dc3545; /* Vermelho */
+        }
+    
+        .cancel-button:hover {
+            background-color: #c82333; /* Vermelho escuro */
+        }
+    
+        .back-button {
+            background-color: #066ac1; /* Cinza */
+            width: 100%; /* Faz o botão ocupar toda a largura disponível */
+            padding: 12px 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px; /* Espaçamento para garantir que fique abaixo */
+        }
+    
+        a {
+            color: #007bff; /* Azul */
+            text-decoration: none;
+            margin-left: 10px;
+        }
+    
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo centralizada -->
+            <div class="logo">
+                <a href="/"><img src="/img/logo1.0.png" alt="Logo da loja"></a>
+            </div>
+    
+            <!-- Área de busca e ícones -->
+            <div class="search-container">
+                <div class="search-area">
+                    <input type="text" id="search-input" placeholder="O que deseja procurar?">
+                    <button id="search-button">Buscar</button>
+                </div>
+                
+                <!-- Ícone do Central de Atendimento -->
+                <div class="logo1">
+                    <a href="#" id="openSupportModal"><img src="/img/central1.0.png" alt="Central de Atendimento"></a>
+                </div>
+    
+                <!-- Modal -->
+                <div id="supportModal" class="support-modal">
+                    <div class="support-modal-content">
+                        <span class="close-support-modal">&times;</span>
+                        <h2>Central de Atendimento</h2>
+                        <p>Escolha uma das opções abaixo:</p>
+                        <button class="support-whatsapp-btn">WhatsApp</button>
+                        <button class="support-instagram-btn">Instagram</button>
+                        <button class="support-email-btn">E-mail</button>
+                    </div>
+                </div>
+    
+                <!-- Ícone do entrar/cadastrar -->
+                <div class="logo2">
+                    <a href="/login" id="login-link">
+                        <img src="/img/login1.0.png" alt="Entrar/Cadastrar" id="login-icon">
+                    </a>
+                    <div id="perfil-menu" class="perfil-menu hidden">
+                        <ul>
+                            <li><a href="/perfil">Visualizar Perfil</a></li>
+                            <li><a href="/logout" id="logout">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Ícone do carrinho -->
+            <div class="cart">
+                <a href="#" id="cart-icon">
+                    <img src="/img/carrinho1.png" alt="Carrinho">
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+    
+            <!-- Modal do carrinho -->
+            <div id="cart-modal">
+                <div id="cart-modal-content">
+                    <span class="close-cart">&times;</span>
+                    <h2>Produtos Carrinho</h2>
+                    <div id="cart-items">
+                        <!-- Itens do carrinho serão inseridos aqui -->
+                    </div>
+                    <div class="cart-total" id="cart-total">Total: R$ 0.00</div>
+                    <button id="checkout-button" onclick="window.location.href='/cart/carrinho'">Finalizar Compra</button>
+                </div>
+            </div>
+        </header>
+    </div>
+    
+    <!-- Separador -->
+    <div class="separator"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/produtos">Produtos</a></li>
+            <li class="dropdown-container">
+                <a href="#">Marcas A a O</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=audemars-piguet" class="marca-item" data-marca="audemars-piguet">Audemars Piguet</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=breitling" class="marca-item" data-marca="breitling">Breitling</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=cartier" class="marca-item" data-marca="cartier">Cartier</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=hublot" class="marca-item" data-marca="hublot">Hublot</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=michael-kors" class="marca-item" data-marca="michael-kors">Michael Kors</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=omega" class="marca-item" data-marca="omega">Omega</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown-container">
+                <a href="#">Marcas P a Z</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=panerai" class="marca-item" data-marca="panerai">Panerai</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=patek-philippe" class="marca-item" data-marca="patek-philippe">Patek Philippe</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=rolex" class="marca-item" data-marca="rolex">Rolex</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=tag-heuer" class="marca-item" data-marca="tag-heuer">Tag Heuer</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="/produtos?categoria=ofertas">Ofertas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Container para a imagem -->
+    <div class="imagem-marcas-container">
+        <img id="marca-imagem" src="" alt="Imagem da marca" />
+    </div>
+
+    <div class="container-pedido">
+        <main>
+            <h1>Detalhes do Pedido</h1>
+    
+            <h2>Informações do Pedido</h2>
+            <ul class="order-info">
+                <li>ID do Pedido: <strong><%= order._id %></strong></li>
+                <li>Status do Pedido: <strong><%= order.orderStatus %></strong></li>
+                <li>Total: R$ <strong><%= order.totalPrice.toFixed(2) %></strong></li>
+                <li>Código de Rastreamento: <strong><%= order.trackingCode || 'N/A' %></strong></li>
+                <li>Data do Pedido: <strong><%= new Date(order.createdAt).toLocaleDateString('pt-BR') %></strong></li> <!-- Exibe a data do pedido -->
+            </ul>
+    
+            <h2>Itens do Pedido</h2>
+            <ul class="order-items">
+                <% order.items.forEach(item => { %>
+                    <li>
+                        <%
+                            const imagemCapa = item.productId.imagens[0]; // Acessando a primeira imagem do array
+                        %>
+                        <% if (imagemCapa) { %>
+                            <img src="/uploads/<%= imagemCapa %>" alt="<%= item.productId.nome %>" class="main-image">
+                        <% } else { %>
+                            <p>Imagem não disponível</p>
+                        <% } %>
+                        <div>
+                            <p><strong>Produto:</strong> <%= item.productId.nome %></p>
+                            <p><strong>Quantidade:</strong> <%= item.quantity %></p>
+                            <p><strong>Preço:</strong> R$ <%= item.price.toFixed(2) %></p>
+                        </div>
+                    </li>
+                <% }); %>
+            </ul>
+    
+            <div class="buttons-container">
+                <% if (order.orderStatus === 'Aguardando Pagamento') { %>
+                    <form action="/order/detalhesPedido/<%= order._id %>/reprocessar" method="POST">
+                        <button type="submit">Fazer Pagamento</button>
+                    </form>
+                <% } %>
+    
+                <% if (order.orderStatus !== 'Enviado') { %>
+                    <form action="/order/cancelar/<%= order._id %>" method="POST" style="display:inline;">
+                        <button type="button" class="cancel-button" onclick="confirmCancel('<%= order._id %>')">Cancelar Pedido</button>
+                    </form>
+                <% } %>
+    
+            </div>
+            <!-- Botão de Voltar -->
+            <form action="/order/meusPedidos" method="GET" style="display:inline;">
+                <button type="submit" class="back-button">Voltar</button>
+            </form>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="about">
+                    <h3>Sobre Kalegacy</h3>
+                    <p>Na Kalegacy, acreditamos que um relógio é muito mais do que um acessório – é uma expressão de estilo, status e personalidade. Combinando a sofisticação da relojoaria clássica com a precisão e inovação da tecnologia suíça, criamos relógios que transcendem o tempo.</p>
+                </div>
+                <div class="contact">
+                    <h3>Contato</h3>
+                    <p>WhatsApp: <a href="https://wa.me/5561995795346" target="_blank">(61) 99579-5346</a></p>
+                    <p>Email: <a href="mailto:contatokalegacy@gmail.com">contatokalegacy@gmail.com</a></p>
+                    <p>Instagram: <a href="https://www.instagram.com/kalegacy_oficial/" target="_blank">@kalegacy_oficial</a></p>
+                </div>
+                <div class="payments">
+                    <h3>Formas de pagamento</h3>
+                    <div class="payment-images">
+                        <img src="https://seeklogo.com/images/M/mercado-pago-logo-18C70D8C77-seeklogo.com.png?v=638388567980000000" alt="Mercado Pago">
+                        <img src="https://i.pinimg.com/originals/01/9a/2d/019a2d16277d159cd2ef1298a4c60ab8.png" alt="Pix">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express">
+                        <img src="https://logodownload.org/wp-content/uploads/2019/09/boleto-logo-0.png" alt="Boleto">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kalegacy. Todos os direitos reservados.</p>
+                <p>Desenvolvido por <a href="https://github.com/kantxlx" target="_blank">BiteConecta</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function confirmCancel(orderId) {
+            if (confirm('Você tem certeza que deseja cancelar este pedido?')) {
+                fetch(`/order/cancelar/${orderId}`, {
+                    method: 'POST'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Pedido cancelado com sucesso!');
+                        location.reload(); // Recarrega a página para refletir a mudança
+                    } else {
+                        alert('Erro ao cancelar o pedido.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert('Erro ao cancelar o pedido. Tente novamente.');
+                });
+            }
+        }
+    </script>
+    <script src="/js/perfil/info.js"></script>
+</body>
+</html>

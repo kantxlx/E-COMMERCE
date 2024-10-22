@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= product.nome %> | Detalhes do Produto</title>
+    <link rel="stylesheet" href="/css/products/details.css">
+</head>
+<body>
+    <div class="header-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo centralizada -->
+            <div class="logo">
+                <a href="/"><img src="/img/logo1.0.png" alt="Logo da loja"></a>
+            </div>
+    
+            <!-- Área de busca e ícones -->
+            <div class="search-container">
+                <div class="search-area">
+                    <input type="text" id="search-input" placeholder="O que deseja procurar?">
+                    <button id="search-button">Buscar</button>
+                </div>
+                
+                <!-- Ícone do Central de Atendimento -->
+                <div class="logo1">
+                    <a href="#" id="openSupportModal"><img src="/img/central1.0.png" alt="Central de Atendimento"></a>
+                </div>
+    
+                <!-- Modal -->
+                <div id="supportModal" class="support-modal">
+                    <div class="support-modal-content">
+                        <span class="close-support-modal">&times;</span>
+                        <h2>Central de Atendimento</h2>
+                        <p>Escolha uma das opções abaixo:</p>
+                        <button class="support-whatsapp-btn">WhatsApp</button>
+                        <button class="support-instagram-btn">Instagram</button>
+                        <button class="support-email-btn">E-mail</button>
+                    </div>
+                </div>
+    
+                <!-- Ícone do entrar/cadastrar -->
+                <div class="logo2">
+                    <a href="/login" id="login-link">
+                        <img src="/img/login1.0.png" alt="Entrar/Cadastrar" id="login-icon">
+                    </a>
+                    <div id="perfil-menu" class="perfil-menu hidden">
+                        <ul>
+                            <li><a href="/perfil">Visualizar Perfil</a></li>
+                            <li><a href="/logout" id="logout">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Ícone do carrinho -->
+            <div class="cart">
+                <a href="#" id="cart-icon">
+                    <img src="/img/carrinho1.png" alt="Carrinho">
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+    
+            <!-- Modal do carrinho -->
+            <div id="cart-modal">
+                <div id="cart-modal-content">
+                    <span class="close-cart">&times;</span>
+                    <h2>Produtos Carrinho</h2>
+                    <div id="cart-items">
+                        <!-- Itens do carrinho serão inseridos aqui -->
+                    </div>
+                    <div class="cart-total" id="cart-total">Total: R$ 0.00</div>
+                    <button id="checkout-button" onclick="window.location.href='/cart/carrinho'">Finalizar Compra</button>
+                </div>
+            </div>
+        </header>
+    </div>
+    
+    <!-- Separador -->
+    <div class="separator"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/produtos">Produtos</a></li>
+            <li class="dropdown-container">
+                <a href="#">Marcas A a O</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=audemars-piguet" class="marca-item" data-marca="audemars-piguet">Audemars Piguet</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=breitling" class="marca-item" data-marca="breitling">Breitling</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=cartier" class="marca-item" data-marca="cartier">Cartier</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=hublot" class="marca-item" data-marca="hublot">Hublot</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=michael-kors" class="marca-item" data-marca="michael-kors">Michael Kors</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=omega" class="marca-item" data-marca="omega">Omega</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown-container">
+                <a href="#">Marcas P a Z</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=panerai" class="marca-item" data-marca="panerai">Panerai</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=patek-philippe" class="marca-item" data-marca="patek-philippe">Patek Philippe</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=rolex" class="marca-item" data-marca="rolex">Rolex</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=tag-heuer" class="marca-item" data-marca="tag-heuer">Tag Heuer</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="/produtos?categoria=ofertas">Ofertas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Container para a imagem -->
+    <div class="imagem-marcas-container">
+        <img id="marca-imagem" src="" alt="Imagem da marca" />
+    </div>
+
+    <div class="product-details">
+        <div class="left">
+            <img id="mainProductImage" src="/uploads/<%= product.imagemCapa || product.imagens[0] || 'default.jpg' %>" alt="<%= product.nome %>" class="product-image">
+            <div class="thumbnail-images">
+                <% if (product.imagemCapa) { %>
+                    <img src="/uploads/<%= product.imagemCapa %>" alt="<%= product.nome %>" onclick="changeMainImage('/uploads/<%= product.imagemCapa %>')">
+                <% } else if (product.imagens.length > 0) { %>
+                    <img src="/uploads/<%= product.imagens[0] %>" alt="<%= product.nome %>" onclick="changeMainImage('/uploads/<%= product.imagens[0] %>')">
+                <% } %>
+                <% product.imagens.forEach(function(imagem, index) { %>
+                    <% if (index > 0) { %> <!-- Ignora a primeira imagem -->
+                        <img src="/uploads/<%= imagem %>" alt="<%= product.nome %>" onclick="changeMainImage('/uploads/<%= imagem %>')">
+                    <% } %>
+                <% }); %>
+            </div>
+        </div>
+    
+        <div class="right">
+            <h1><%= product.nome %></h1>
+            <p class="brand">Marca: <%= product.marca %></p>
+            <% if (product.precoAntigo) { %>
+                <p class="old-price">R$<%= product.precoAntigo.toFixed(2) %></p>
+            <% } %>
+            <p class="current-price">R$<%= product.preco.toFixed(2) %></p>
+    
+            <div class="quantity-controls">
+                <button class="quantity-button" onclick="decreaseQuantity()">-</button>
+                <input type="number" id="quantity" class="quantity-input" value="1" min="1" />
+                <button class="quantity-button" onclick="increaseQuantity()">+</button>
+            </div>
+    
+            <button class="buy-button" onclick="adicionarAoCarrinho('<%= product._id %>')">Comprar</button>
+            <div id="mensagem" class="mensagem" style="display: none;"></div>
+    
+            <!-- Modal para login -->
+            <div id="modal-login" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <p>Para continuar a compra, entre ou cadastre-se no nosso site.</p>
+                    <a href="/login" class="btn-login">Fazer Login</a>
+                    <button class="btn-continue">Continuar Olhando</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="description">
+        <h2>Descrição do Produto</h2>
+        <p><%- product.descricao ? product.descricao.replace(/\n/g, '<br>') : 'Descrição não disponível.' %></p>
+    </div>
+    
+    <div class="relevant-products">
+        <h2>Produtos Relevantes</h2>
+        <div class="products-grid">
+            <% if (relevantProducts && relevantProducts.length) { %>
+                <% relevantProducts.slice(0, 5).forEach(function(produto) { %>
+                <div class="product-card">
+                    <a href="/product-details/<%= produto._id %>">
+                        <img src="/uploads/<%= produto.imagemCapa || produto.imagens[0] || 'default.jpg' %>" alt="<%= produto.nome %>" class="product-card-image">
+                        <p><%= produto.nome %></p>
+                        <% if (produto.precoAntigo) { %>
+                            <p class="old-price">R$<%= produto.precoAntigo.toFixed(2) %></p>
+                        <% } %>
+                        <p class="current-price">R$<%= produto.preco.toFixed(2) %></p>
+                    </a>
+                </div>
+                <% }); %>
+            <% } else { %>
+                <p>Nenhum produto relevante disponível.</p>
+            <% } %>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="about">
+                    <h3>Sobre Kalegacy</h3>
+                    <p>Na Kalegacy, acreditamos que um relógio é muito mais do que um acessório – é uma expressão de estilo, status e personalidade. Combinando a sofisticação da relojoaria clássica com a precisão e inovação da tecnologia suíça, criamos relógios que transcendem o tempo.</p>
+                </div>
+                <div class="contact">
+                    <h3>Contato</h3>
+                    <p>WhatsApp: <a href="https://wa.me/5561995795346" target="_blank">(61) 99579-5346</a></p>
+                    <p>Email: <a href="mailto:contatokalegacy@gmail.com">contatokalegacy@gmail.com</a></p>
+                    <p>Instagram: <a href="https://www.instagram.com/kalegacy_oficial/" target="_blank">@kalegacy_oficial</a></p>
+                </div>
+                <div class="payments">
+                    <h3>Formas de pagamento</h3>
+                    <div class="payment-images">
+                        <img src="https://seeklogo.com/images/M/mercado-pago-logo-18C70D8C77-seeklogo.com.png?v=638388567980000000" alt="Mercado Pago">
+                        <img src="https://i.pinimg.com/originals/01/9a/2d/019a2d16277d159cd2ef1298a4c60ab8.png" alt="Pix">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express">
+                        <img src="https://logodownload.org/wp-content/uploads/2019/09/boleto-logo-0.png" alt="Boleto">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kalegacy. Todos os direitos reservados.</p>
+                <p>Desenvolvido por <a href="https://github.com/kantxlx" target="_blank">BiteConecta</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/products/details.js"></script>
+</body>
+</html>

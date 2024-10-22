@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KALEGACY - Loja de Relógios</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="header-container">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo centralizada -->
+            <div class="logo">
+                <a href="/"><img src="/img/logo1.0.png" alt="Logo da loja"></a>
+            </div>
+    
+            <!-- Área de busca e ícones -->
+            <div class="search-container">
+                <div class="search-area">
+                    <input type="text" id="search-input" placeholder="O que deseja procurar?">
+                    <button id="search-button">Buscar</button>
+                </div>
+                
+                <!-- Ícone do Central de Atendimento -->
+                <div class="logo1">
+                    <a href="#" id="openSupportModal"><img src="/img/central1.0.png" alt="Central de Atendimento"></a>
+                </div>
+    
+                <!-- Modal -->
+                <div id="supportModal" class="support-modal">
+                    <div class="support-modal-content">
+                        <span class="close-support-modal">&times;</span>
+                        <h2>Central de Atendimento</h2>
+                        <p>Escolha uma das opções abaixo:</p>
+                        <button class="support-whatsapp-btn">WhatsApp</button>
+                        <button class="support-instagram-btn">Instagram</button>
+                        <button class="support-email-btn">E-mail</button>
+                    </div>
+                </div>
+    
+                <!-- Ícone do entrar/cadastrar -->
+                <div class="logo2">
+                    <a href="/login" id="login-link">
+                        <img src="/img/login1.0.png" alt="Entrar/Cadastrar" id="login-icon">
+                    </a>
+                    <div id="perfil-menu" class="perfil-menu hidden">
+                        <ul>
+                            <li><a href="/perfil">Visualizar Perfil</a></li>
+                            <li><a href="/logout" id="logout">Sair</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Ícone do carrinho -->
+            <div class="cart">
+                <a href="#" id="cart-icon">
+                    <img src="/img/carrinho1.png" alt="Carrinho">
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+    
+            <!-- Modal do carrinho -->
+            <div id="cart-modal">
+                <div id="cart-modal-content">
+                    <span class="close-cart">&times;</span>
+                    <h2>Produtos Carrinho</h2>
+                    <div id="cart-items">
+                        <!-- Itens do carrinho serão inseridos aqui -->
+                    </div>
+                    <div class="cart-total" id="cart-total">Total: R$ 0.00</div>
+                    <button id="checkout-button" onclick="window.location.href='/cart/carrinho'">Finalizar Compra</button>
+                </div>
+            </div>
+        </header>
+    </div>
+    
+    <!-- Separador -->
+    <div class="separator"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/produtos">Produtos</a></li>
+            <li class="dropdown-container">
+                <a href="#">Marcas A a O</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=audemars-piguet" class="marca-item" data-marca="audemars-piguet">Audemars Piguet</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=breitling" class="marca-item" data-marca="breitling">Breitling</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=cartier" class="marca-item" data-marca="cartier">Cartier</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=hublot" class="marca-item" data-marca="hublot">Hublot</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=michael-kors" class="marca-item" data-marca="michael-kors">Michael Kors</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=omega" class="marca-item" data-marca="omega">Omega</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="dropdown-container">
+                <a href="#">Marcas P a Z</a>
+                <ul class="dropdown">
+                    <li>
+                        <a href="/produtos?marca=panerai" class="marca-item" data-marca="panerai">Panerai</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=patek-philippe" class="marca-item" data-marca="patek-philippe">Patek Philippe</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=rolex" class="marca-item" data-marca="rolex">Rolex</a>
+                    </li>
+                    <li>
+                        <a href="/produtos?marca=tag-heuer" class="marca-item" data-marca="tag-heuer">Tag Heuer</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="/produtos?categoria=ofertas">Ofertas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Container para a imagem -->
+    <div class="imagem-marcas-container">
+        <img id="marca-imagem" src="" alt="Imagem da marca" />
+    </div>
+
+    <!-- Carousel -->
+    <section class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-images">
+                <img src="/img/Clock_Closeup_Watch_Luxury_522336_1920x1080.jpg" alt="Imagem 1">
+                <img src="/img/image2.jpg" alt="Imagem 2">
+                <img src="/img/image3.jpg" alt="Imagem 3">
+                <img src="/img/image4.jpg" alt="Imagem 4">
+            </div>
+            <button class="carousel-prev">&lt;</button>
+            <button class="carousel-next">&gt;</button>
+        </div>
+        <div class="carousel-dots">
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+            <span class="dash"></span>
+        </div>
+    </section>
+
+    <!-- O que oferecemos -->
+    <section class="features">
+        <div class="feature-item">
+            <img src="img/pecas.png" alt="Peças Exclusivas">
+            <div class="feature-text">
+                <h3>Peças Exclusivas</h3>
+                <p>Novidades toda semana</p>
+            </div>
+        </div>
+    
+        <div class="feature-item">
+            <img src="/img/comprasegura.png" alt="Compra 100% Segura">
+            <div class="feature-text">
+                <h3>Compra 100% Segura</h3>
+                <p>Alta tecnologia</p>
+            </div>
+        </div>
+    
+        <div class="feature-item">
+            <img src="/img/entrega.png" alt="Entrega no Brasil">
+            <div class="feature-text">
+                <h3>Entrega gratis em todo Brasil</h3>
+                <p>Cobertura Nacional</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Marcas -->
+    <section class="carrossel-marcas">
+        <h2>Compre por marca</h2>
+        <div class="container-marcas">
+            <div class="faixa-marcas">
+                <a href="/produtos?marca=audemars-piguet" target="_blank"><img src="img/Marcas/Audemars_Piguet_logo.png" alt="Audemars Piguet"></a>
+                <a href="/produtos?marca=breitling" target="_blank"><img src="img/Marcas/Breitling.webp" alt="Breitling"></a>
+                <a href="/produtos?marca=cartier" target="_blank"><img src="img/Marcas/Cartier.webp" alt="Cartier"></a>
+                <a href="/produtos?marca=hublot" target="_blank"><img src="img/Marcas/Hublot.webp" alt="Hublot"></a>
+                <a href="/produtos?marca=omega" target="_blank"><img src="img/Marcas/logo-omega.png" alt="Omega"></a>
+                <a href="/produtos?marca=michael-kors" target="_blank"><img src="img/Marcas/Michael Kors.png" alt="Michael Kors"></a>
+                <a href="/produtos?marca=panerai" target="_blank"><img src="img/Marcas/Panerai.webp" alt="Panerai"></a>
+                <a href="/produtos?marca=patek-philippe" target="_blank"><img src="img/Marcas/Patek-Philippe.webp" alt="Patek Philippe"></a>
+                <a href="/produtos?marca=rolex" target="_blank"><img src="img/Marcas/Rolex.webp" alt="Rolex"></a>
+                <a href="/produtos?marca=tag-heuer" target="_blank"><img src="img/Marcas/tag-Heuer.webp" alt="Tag Heuer"></a>
+            </div>
+        </div>
+        <div class="paginacao-marcas">
+            <span class="ponto ativo"></span>
+            <span class="ponto"></span>
+            <span class="ponto"></span>
+            <span class="ponto"></span>
+            <span class="ponto"></span>
+            <span class="ponto"></span>
+            <span class="ponto"></span>
+        </div>
+    </section>
+    
+    <!-- Seção de Ofertas -->
+    <section id="ofertas">
+        <h2>Ofertas</h2>
+        <div class="product-slider-container">
+            <button class="slider-nav prev" aria-label="Anterior">&lt;</button>
+            <div class="product-slider" id="ofertas-slider">
+                <% if (ofertas && ofertas.length > 0) { %>
+                <% ofertas.slice(0, 10).forEach(function(produto) { %>
+                <div class="product-item">
+                    <a href="/product-details/<%= produto.id %>">
+                        <div class="product-image">
+                            <% if (produto.imagens && produto.imagens.length > 0) { %>
+                                <img src="/uploads/<%= produto.imagemCapa ? produto.imagemCapa : produto.imagens[0] %>" alt="<%= produto.nome %>" class="main-image">
+                                <% if (produto.imagens.length > 1) { %>
+                                    <img src="/uploads/<%= produto.imagens[1] %>" alt="<%= produto.nome %>" class="hover-image">
+                                <% } %>
+                            <% } else { %>
+                                <img src="/uploads/default.jpg" alt="Imagem padrão" class="main-image">
+                            <% } %>
+                        </div>
+                        <h2 class="product-name"><%= produto.nome %></h2>
+                        <% if (produto.precoAntigo) { %>
+                            <p class="old-price">R$<%= produto.precoAntigo %></p>
+                        <% } %>
+                        <p class="new-price">R$<%= produto.preco %></p>
+                    </a>
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="quantity-btn decrease">-</button>
+                            <input type="number" value="1" min="1">
+                            <button class="quantity-btn increase">+</button>
+                        </div>
+                        <button class="buy-btn" data-id="<%= produto.id %>">Comprar</button>
+                        <a href="https://wa.me/+556195795346?text=Desejo saber mais informações sobre <%= produto.nome %>"
+                            class="whatsapp-btn">Comprar no WhatsApp</a>
+                    </div>
+                </div>
+                <% }) %>
+                <% } else { %>
+                <p>Não há produtos disponíveis.</p>
+                <% } %>
+            </div>
+            <div id="mensagem" class="mensagem" style="display: none;"></div>
+            <!-- Modal para login -->
+            <div id="modal-login" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <p>Para continuar a compra, entre ou cadastre no nosso site.</p>
+                    <a href="/login" class="btn-login">Fazer Login</a>
+                    <button class="btn-continue">Continuar Olhando</button>
+                </div>
+            </div>
+            <button class="slider-nav next" aria-label="Próximo">&gt;</button>
+        </div>
+        <button class="view-more-btn" onclick="window.location.href='/produtos?categoria=ofertas'">Ver mais</button>
+    </section>
+
+    <!-- Seção de Novidades -->
+    <section id="novidades">
+        <h2>Novidades</h2>
+        <div class="product-slider-container">
+            <button class="slider-nav prev" aria-label="Anterior">&lt;</button>
+            <div class="product-slider" id="novidades-slider">
+                <% if (novidades && novidades.length > 0) { %>
+                <% novidades.slice(0, 10).forEach(function(produto) { %>
+                <div class="product-item">
+                    <a href="/product-details/<%= produto.id %>">
+                        <div class="product-image">
+                            <% if (produto.imagens && produto.imagens.length > 0) { %>
+                                <img src="/uploads/<%= produto.imagemCapa ? produto.imagemCapa : produto.imagens[0] %>" alt="<%= produto.nome %>" class="main-image">
+                                <% if (produto.imagens.length > 1) { %>
+                                    <img src="/uploads/<%= produto.imagens[1] %>" alt="<%= produto.nome %>" class="hover-image">
+                                <% } %>
+                            <% } else { %>
+                                <img src="/uploads/default.jpg" alt="Imagem padrão" class="main-image">
+                            <% } %>
+                        </div>
+                        <h2 class="product-name"><%= produto.nome %></h2>
+                        <p class="new-price">R$<%= produto.preco %></p>
+                    </a>
+                    <div class="product-actions">
+                        <div class="quantity-selector">
+                            <button class="quantity-btn decrease">-</button>
+                            <input type="number" value="1" min="1">
+                            <button class="quantity-btn increase">+</button>
+                        </div>
+                        <button class="buy-btn" data-id="<%= produto.id %>">Comprar</button>
+                        <a href="https://wa.me/+556195795346?text=Desejo saber mais informações sobre <%= produto.nome %>"
+                            class="whatsapp-btn">Comprar no WhatsApp</a>
+                    </div>
+                </div>
+                <% }) %>
+                <% } else { %>
+                <p>Não há produtos disponíveis.</p>
+                <% } %>
+            </div>
+            <div id="mensagem" class="mensagem" style="display: none;"></div>
+            <!-- Modal para login -->
+            <div id="modal-login" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <p>Para continuar a compra, entre ou cadastre no nosso site.</p>
+                    <a href="/login" class="btn-login">Fazer Login</a>
+                    <button class="btn-continue">Continuar Olhando</button>
+                </div>
+            </div>
+            <button class="slider-nav next" aria-label="Próximo">&gt;</button>
+        </div>
+        <button class="view-more-btn" onclick="window.location.href='/produtos?categoria=novidades'">Ver mais</button>
+    </section>
+
+    <div class="button-container">
+        <button class="luxury-product-btn" onclick="window.location.href='/produtos'">
+        Ver todos os produtos
+        <span class="luxury-description">Os melhores relógios de luxo estão aqui</span>
+        <span class="arrow-group">
+            &#x25BC;
+        </span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="about">
+                    <h3>Sobre Kalegacy</h3>
+                    <p>Na Kalegacy, acreditamos que um relógio é muito mais do que um acessório – é uma expressão de estilo, status e personalidade. Combinando a sofisticação da relojoaria clássica com a precisão e inovação da tecnologia suíça, criamos relógios que transcendem o tempo.</p>
+                </div>
+                <div class="contact">
+                    <h3>Contato</h3>
+                    <p>WhatsApp: <a href="https://wa.me/5561995795346" target="_blank">(61) 99579-5346</a></p>
+                    <p>Email: <a href="mailto:contatokalegacy@gmail.com">contatokalegacy@gmail.com</a></p>
+                    <p>Instagram: <a href="https://www.instagram.com/kalegacy_oficial/" target="_blank">@kalegacy_oficial</a></p>
+                </div>
+                <div class="payments">
+                    <h3>Formas de pagamento</h3>
+                    <div class="payment-images">
+                        <img src="https://seeklogo.com/images/M/mercado-pago-logo-18C70D8C77-seeklogo.com.png?v=638388567980000000" alt="Mercado Pago">
+                        <img src="https://i.pinimg.com/originals/01/9a/2d/019a2d16277d159cd2ef1298a4c60ab8.png" alt="Pix">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express">
+                        <img src="https://logodownload.org/wp-content/uploads/2019/09/boleto-logo-0.png" alt="Boleto">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Visa.svg/1200px-Visa.svg.png" alt="Visa">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mastercard_2019_logo.svg" alt="Mastercard">
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kalegacy. Todos os direitos reservados.</p>
+                <p>Desenvolvido por <a href="https://github.com/kantxlx" target="_blank">BiteConecta</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>

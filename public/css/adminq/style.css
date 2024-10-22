@@ -1,0 +1,104 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+header {
+    background-color: #003366; /* Cor azul escuro */
+    color: white;
+    padding: 20px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between; /* Espaça o título e o logout */
+    align-items: center; /* Garante que os itens fiquem alinhados verticalmente */
+    box-sizing: border-box;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logout-btn {
+    color: white;
+    background-color: #0066cc; /* Cor azul */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #005bb5; /* Azul mais escuro no hover */
+    transform: scale(1.05);
+}
+
+.logout-btn:active {
+    background-color: #004a99; /* Azul ainda mais escuro quando clicado */
+}
+
+main {
+    margin-top: 100px; /* Espaço para o cabeçalho fixo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 100px); /* Ajuste para a altura restante */
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 18px;
+    color: white;
+    background-color: #0066cc; /* Cor azul */
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+    background-color: #005bb5; /* Azul mais escuro no hover */
+    transform: scale(1.05);
+}
+
+.btn:active {
+    background-color: #004a99; /* Azul ainda mais escuro quando clicado */
+}
+
+/*mensagem*/
+.success-message, .error-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    display: block;
+    z-index: 9999;
+}
+.error-message {
+    background-color: #f44336;
+}
+.close-btn {
+    margin-left: 10px;
+    cursor: pointer;
+}

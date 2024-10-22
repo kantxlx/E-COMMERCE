@@ -1,0 +1,208 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-y: auto;
+}
+
+header {
+    background-color: #003366;
+    color: white;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    height: 80px;
+    box-sizing: border-box;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header .btn {
+    background-color: #ff5c5c;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+main {
+    margin-top: 100px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px; /* Espaço entre os elementos */
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+#search {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    flex-grow: 1; /* Faz a barra de pesquisa ocupar o espaço disponível */
+    max-width: 300px; /* Define um tamanho máximo para a barra de pesquisa */
+}
+
+#search-btn {
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#search-btn:hover {
+    background-color: #005bb5;
+}
+
+#sort {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    flex-shrink: 0;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s, border 0.3s;
+    border: 2px solid transparent;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    border: 2px solid #00f;
+}
+
+.product-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    height: 100%;
+}
+
+.product-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 10px;
+}
+
+.product-card .btn-view{
+    margin: 5px 0;
+    width: calc(100% - 20px); /* Ajusta a largura dos botões para ocupar o espaço disponível */
+}
+
+.product-info h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.product-info p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.btn-view {
+    display: block;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.btn-view:hover {
+    background-color: #005bb5;
+}
+
+.delete-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.btn-delete {
+    background-color: #ff5c5c;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 30px;
+}
+
+.btn-delete:hover {
+    background-color: #cc0000;
+}
+
+.btn-delete:active {
+    background-color: #990000;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

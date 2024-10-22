@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Usuários</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            overflow-y: auto; /* Adiciona rolagem vertical */
+        }
+
+        header {
+            background-color: #003366; /* Cor azul escuro */
+            color: white;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 9999; /* Garante que o cabeçalho fique acima de outros elementos */
+            height: 80px; /* Define a altura do cabeçalho */
+            box-sizing: border-box; /* Inclui padding e bordas na altura */
+        }
+
+        h1 {
+            margin: 0; /* Remove margem para título no cabeçalho */
+        }
+
+        .back-link {
+            color: #ff5c5c; /* Cor para o botão de voltar */
+            text-decoration: none;
+            margin-right: 30px; /* Espaçamento à direita */
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .search-container form {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 250px;
+            font-size: 16px;
+        }
+
+        .search-container button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-container .search-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .search-container .search-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .search-container .clear-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .search-container .clear-btn:hover {
+            background-color: #c82333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #003366;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #0066cc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #005bb5;
+        }
+
+        .btn-delete {
+            color: #ff5c5c; /* Cor para o botão de excluir */
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function confirmDelete(userId) {
+            if (confirm("Tem certeza de que deseja excluir esta conta?")) {
+                window.location.href = '/admin/delete-user/' + userId;
+            }
+        }
+        function clearSearch() {
+            const searchInput = document.querySelector('input[name="search"]');
+            searchInput.value = ''; // Limpa o campo de pesquisa
+            searchInput.focus(); // Reposiciona o cursor no campo de pesquisa
+        }
+
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Gerenciamento de Usuários</h1>
+        <a class="back-link" href="/admin">Voltar</a>
+    </header>
+
+    <% if (success) { %>
+        <p class="message success"><%= success %></p>
+    <% } %>
+    <% if (error) { %>
+        <p class="message error"><%= error %></p>
+    <% } %>
+
+    <div class="search-container">
+        <form method="GET" action="/admin/management-users">
+            <input type="text" name="search" placeholder="Pesquisar por email" required>
+            <button type="submit" class="search-btn">Buscar</button>
+            <button type="button" class="clear-btn" onclick="window.location.href='/admin/management-users?clear=true'">Limpar Filtro</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Pergunta Secreta</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.securityQuestion || 'Não Definida' %></td>
+                    <td>
+                        <a href="/admin/edit-user/<%= user._id %>">Editar Senha</a> |
+                        <form method="POST" action="/admin/delete-user/<%= user._id %>" onsubmit="return confirm('Você tem certeza que deseja excluir este usuário?')">
+                            <button type="submit" class="btn-delete">Excluir Conta</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+h2, h3 {
+    text-align: center; /* Centraliza títulos */
+    color: #2c3e50; /* Cor do texto dos títulos */
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.address-form, .address-list {
+    margin-top: 20px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[readonly] {
+    background-color: #e9ecef;
+}
+
+.btn {
+    margin: 0 10px; /* Margem horizontal entre os botões */
+    padding: 10px 20px;
+    background-color: #3498db; /* Azul */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Efeito de transição */
+}
+
+.btn:hover {
+    background-color: #2980b9; /* Azul escuro ao passar o mouse */
+}
+
+.address-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.address-item {
+    border-bottom: 1px solid #ccc; /* Linha separadora */
+    padding: 10px 0;
+    transition: transform 0.3s ease, border 0.3s ease; /* Transições para zoom e borda */
+}
+
+.address-item:hover {
+    transform: scale(1.02);
+    border-color: #0a74da;
+}
+
+#edit-address-section {
+    margin-top: 20px;
+    text-align: center; /* Centraliza o texto do formulário de edição */
+}
+
+.address-buttons {
+    display: flex;
+    justify-content: center; /* Centraliza os botões de editar e deletar */
+    margin-top: 10px;
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Vermelho */
+}
+
+.delete-btn:hover {
+    background-color: #c82333; /* Vermelho escuro */
+}
+
+.add-address-btn {
+    margin-top: 20px;
+    background-color: #28a745; /* Verde */
+}
+
+.add-address-btn:hover {
+    background-color: #218838; /* Verde escuro */
+}
+
+.cancel-btn {
+    background-color: #e74c3c; /* Vermelho */
+}
+
+.cancel-btn:hover {
+    background-color: #c0392b; /* Vermelho escuro */
+}

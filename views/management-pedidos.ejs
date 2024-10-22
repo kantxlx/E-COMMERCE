@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Pedido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #003366; /* Azul escuro */
+            color: white;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            box-shadow: 0 4px 2px -2px gray;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        main {
+            margin-top: 80px; /* Espaço para o header */
+            padding: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            font-size: 22px;
+            color: #0066cc; /* Azul */
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333; /* Cinza escuro */
+            margin: 5px 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex; /* Para exibir os itens em linha */
+            flex-wrap: wrap; /* Para quebrar linha quando não houver espaço */
+        }
+
+        li {
+            font-size: 16px;
+            margin-bottom: 10px;
+            display: flex; /* Para alinhar imagem e texto */
+            margin-right: 20px; /* Espaçamento entre os produtos */
+            align-items: center; /* Alinhamento vertical */
+        }
+
+        .product-image {
+            width: 100px; /* Tamanho fixo da imagem */
+            height: 100px; /* Altura fixa da imagem */
+            object-fit: cover; /* Ajusta a imagem para cobrir o espaço sem cortar */
+            margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+        }
+
+        a.btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #0066cc;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        a.btn:hover {
+            background-color: #005bb5;
+            transform: scale(1.05);
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Detalhes do Pedido <%= order._id %></h1>
+    </header>
+
+    <main>
+        <h2>Informações do Cliente</h2>
+        <p>Nome: <%= order.name %></p>
+        <p>Email: <%= order.email %></p>
+        <p>Telefone: <%= order.phone %></p>
+        <p>CPF: <%= order.cpf %></p>
+    
+        <h2>Endereço</h2>
+        <p>CEP: <%= order.address.cep %></p>
+        <p>Quadra: <%= order.address.quadra %></p>
+        <p>Bairro: <%= order.address.bairro %></p>
+        <p>Cidade: <%= order.address.cidade %></p>
+        <p>Estado: <%= order.address.estado %></p>
+        <p>Número: <%= order.address.numero %></p>
+        <p>Complemento: <%= order.address.complemento %></p>
+    
+        <h2>Itens do Pedido</h2>
+        <ul class="order-items">
+            <% order.items.forEach(item => { %>
+                <li>
+                    <%
+                        const imagemCapa = item.productId.imagemCapa || item.productId.imagens[0]; // Usa imagemCapa ou a primeira imagem
+                    %>
+                    <% if (imagemCapa) { %>
+                        <img src="/uploads/<%= imagemCapa %>" alt="<%= item.productId.nome %>" class="product-image">
+                    <% } else { %>
+                        <p>Imagem não disponível</p>
+                    <% } %>
+                    <div>
+                        <p><strong>Produto:</strong> <%= item.productId.nome %></p>
+                        <p><strong>Quantidade:</strong> <%= item.quantity %></p>
+                        <p><strong>Preço:</strong> R$ <%= item.price.toFixed(2) %></p>
+                    </div>
+                </li>
+            <% }); %>
+        </ul>
+    
+        <h2>Data da Compra</h2>
+        <p><%= new Date(order.createdAt).toLocaleDateString('pt-BR') %></p>
+    
+        <h2>Status do Pedido</h2>
+        <p>Status: <%= order.orderStatus %></p>
+    
+        <h2>Total do Pedido</h2>
+        <p>R$ <%= order.totalPrice.toFixed(2) %></p>
+    
+        <a href="/admin/download-pedido/<%= order._id %>" class="btn">Baixar PDF</a>
+        <a href="/admin/adminPedidos" class="btn">Voltar para a lista de pedidos</a>
+    </main>
+</body>
+</html>
